@@ -13,7 +13,7 @@ namespace InstaFinalProject.Api.Controllers
     [ApiController]
     public class RoleController : ControllerBase
     {
-        //dsbfkjsfnkjsndhaya //dskjfnskjdnckjsnd //jksdhfjksdkjsb //jdksbckjsdbckj //hvkhvkjv
+        //dsbfkjsfnkjsndhaya //dskjfnskjdnckjsnd //jksdhfjksdkjsb //jdksbckjsdbckj //hvkhvkjv //kjgkgkgkg
         private readonly IRoleService _IRoleService; //haya
 
         public RoleController(IRoleService IRoleService)
@@ -45,12 +45,6 @@ namespace InstaFinalProject.Api.Controllers
         }
         [HttpPut]
         public bool updateRole(Role role)
-        {
-            return _IRoleService.updateRole(role);
-        }
-
-        [HttpPut]
-        public bool updateRoleksjfnf(Role role)
         {
             return _IRoleService.updateRole(role);
         }
