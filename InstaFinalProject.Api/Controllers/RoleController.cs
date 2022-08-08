@@ -13,9 +13,7 @@ namespace InstaFinalProject.Api.Controllers
     [ApiController]
     public class RoleController : ControllerBase
     {
-        //kdsfklsnfkjsdnc
-        //welcomeedvdvd,vlds
-        //kjdjfnhlksdnc
+        //dsbfkjsfnkjsndhaya
         private readonly IRoleService _IRoleService;
 
         public RoleController(IRoleService IRoleService)
