@@ -20,15 +20,15 @@ namespace Core.Data
         public int isactive { get; set; }
     
         public ICollection<Login> Logins { get; set; }
-        //public ICollection<Serviceuser> Serviceusers { get; set; }
+        public ICollection<ServiceUser> Serviceusers { get; set; }
         public ICollection<Post> Posts { get; set; }
-        //public ICollection<Story> Stories { get; set; }
+        public ICollection<Story> Stories { get; set; }
         public ICollection<Message> Messages { get; set; }
         public ICollection<Followers> Followers { get; set; }
-        //public ICollection<Comment> Comments { get; set; }
-        //public ICollection<Interaction> Interactions { get; set; }
-        //public ICollection<Report> Reports { get; set; }
-        //public ICollection<Visa> Visas { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+        public ICollection<Interaction> Interactions { get; set; }
+        public ICollection<Report> Reports { get; set; }
+        public ICollection<Visa> Visas { get; set; }
 
     }
 }
