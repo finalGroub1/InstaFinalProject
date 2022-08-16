@@ -37,7 +37,6 @@ namespace InstaFinalProject.Api.Controllers
             return _IRoleService.getbyidRole(id);
         }
 
-
         [HttpPost]
         public bool insertRole([FromBody]Role role)
         {

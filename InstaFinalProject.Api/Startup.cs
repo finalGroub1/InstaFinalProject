@@ -36,9 +36,11 @@ namespace InstaFinalProject.Api
 
             //----------------------for service
             services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IUserService, UserService>();
 
             //---------------------for repstory
             services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
         }
 
