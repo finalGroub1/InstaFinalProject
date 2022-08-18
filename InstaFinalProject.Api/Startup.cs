@@ -31,6 +31,15 @@ namespace InstaFinalProject.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(corsOptions =>
+            {
+                corsOptions.AddPolicy("policy",
+                builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                });
+            });
+
             services.AddControllers();
             services.AddScoped<IDBContext, DBContext>();
 
@@ -55,6 +64,8 @@ namespace InstaFinalProject.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("policy");
 
             app.UseAuthorization();
 
