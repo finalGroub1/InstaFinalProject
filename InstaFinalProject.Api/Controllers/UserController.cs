@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -51,5 +52,37 @@ namespace InstaFinalProject.Api.Controllers
             return UserService.updateUser(User);
         }
 
+        [Route("uploadImage")]
+        [HttpPost]
+        public User UploadImage()
+        {
+            try
+            {
+                var file = Request.Form.Files[0];
+                //byte[] fileContent;
+                //using (var ms = new MemoryStream())
+                //{
+                //    file.CopyTo(ms);
+                //    fileContent = ms.ToArray();
+                //}
+                var fileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                //string attachmentFileName = $"{fileName}.{Path.GetExtension(file.FileName).Replace(".","")}";
+                var fullPath = Path.Combine("C:\\Users\\Lenovo\\EdueSite\\src\\assets\\images", fileName);
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+                User item = new User();
+                item.imge = fileName;
+                return item;
+
+            }
+            catch (Exception e)
+            {
+
+                return null;
+            }
+
+        }
     }
 }
