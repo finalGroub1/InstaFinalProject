@@ -34,7 +34,8 @@ namespace InstaFinalProject.Api.Controllers
             return UserService.getallUser();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("GetById")]
         public User getbyidUser(int id)
         {
             return UserService.getbyidUser(id);
