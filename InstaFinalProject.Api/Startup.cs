@@ -44,11 +44,33 @@ namespace InstaFinalProject.Api
             services.AddScoped<IDBContext, DBContext>();
 
             //----------------------for service
+            services.AddScoped<IAboutUsService, AboutUsService>();
+            services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IContactUsService, ContactUsService>();
+            services.AddScoped<IFollowersService, FollowersService>();
+            services.AddScoped<IHomeService, HomeService>();
+            services.AddScoped<IInteractionService, InteractionService>();
+            services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<IMediaPostService, MediaPostService>();
+            services.AddScoped<ImessageService, MessageService>();
+            services.AddScoped<IPostService, PostService>();
             services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<ITestemonialService, TestemonialService>();
             services.AddScoped<IUserService, UserService>();
 
             //---------------------for repstory
+            services.AddScoped<IAboutUsRepository, AboutUsRepository>();
+            services.AddScoped<ICommentReposetory, CommentReposetory>();
+            services.AddScoped<IContactUsRepository, ContactUsRepository>();
+            services.AddScoped<IFollowersRepository, FollowersRepository>();
+            services.AddScoped<IHomeRepository, HomeRepository>();
+            services.AddScoped<IInteractionRepository, InteractionRepository>();
+            services.AddScoped<ILoginRepository, LoginRepository>();
+            services.AddScoped<IMediaPostRepository, MediaPostRepository>();
+            services.AddScoped<ImessageRepository, MessageRepository>();
+            services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<ITestemonialRepository, TestemonialRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
 
         }
