@@ -21,6 +21,7 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpDelete]
+        [Route("delete/{id}")]
         public bool deleteComment(int id)
         {
             return commentservice.deleteComment(id);
@@ -40,7 +41,7 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpPost]
-        public bool insertComment(Comment comment)
+        public bool insertComment([FromBody] Comment comment)
         {
             return commentservice.insertComment(comment);
         }

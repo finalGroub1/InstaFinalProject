@@ -42,7 +42,7 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpPost]
-        public bool insertAbout(Aboutus aboutus)
+        public bool insertAbout([FromBody] Aboutus aboutus)
         {
             return aboutUsService.insertAbout(aboutus);
         }

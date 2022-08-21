@@ -41,7 +41,7 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpPost]
-        public bool insertContact(Contactus contactus)
+        public bool insertContact([FromBody] Contactus contactus)
         {
             return contactUsService.insertContact(contactus);
         }

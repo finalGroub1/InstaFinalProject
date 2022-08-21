@@ -21,6 +21,7 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpDelete]
+        [Route("delete/{id}")]
         public bool deleteInterAction(int id)
         {
             return interactionService.deleteInterAction(id);
@@ -40,7 +41,7 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpPost]
-        public bool insertInterAction(Interaction Interaction)
+        public bool insertInterAction([FromBody] Interaction Interaction)
         {
             return interactionService.insertInterAction(Interaction);
         }

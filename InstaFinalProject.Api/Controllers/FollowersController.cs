@@ -21,6 +21,7 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpDelete]
+        [Route("delete/{id}")]
         public bool deleteFollowers(int id)
         {
             return followersService.deleteFollowers(id);
@@ -40,7 +41,7 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpPost]
-        public bool insertFollowers(Followers followers)
+        public bool insertFollowers([FromBody] Followers followers)
         {
             return followersService.insertFollowers(followers);
         }

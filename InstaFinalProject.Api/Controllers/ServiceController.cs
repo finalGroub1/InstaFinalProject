@@ -21,6 +21,7 @@ namespace InstaFinalProject.Api.Controllers
         }
         
         [HttpDelete]
+        [Route("delete/{id}")]
         public bool deleteService(int id)
         {
             return service_FService.deleteService(id);
@@ -40,7 +41,7 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpPost]
-        public bool insertService(Service_F service)
+        public bool insertService([FromBody] Service_F service)
         {
             return service_FService.insertService(service);
         }

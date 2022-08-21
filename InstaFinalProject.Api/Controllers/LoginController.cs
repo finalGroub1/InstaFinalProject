@@ -21,6 +21,7 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpDelete]
+        [Route("delete/{id}")]
         public bool deleteLogin(int id)
         {
             return loginService.deleteLogin(id);
@@ -40,7 +41,7 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpPost]
-        public bool insertLogin(Login login)
+        public bool insertLogin([FromBody] Login login)
         {
             return loginService.insertLogin(login);
         }

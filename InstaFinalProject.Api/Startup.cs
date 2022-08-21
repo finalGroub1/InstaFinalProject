@@ -58,6 +58,12 @@ namespace InstaFinalProject.Api
             services.AddScoped<ITestemonialService, TestemonialService>();
             services.AddScoped<IUserService, UserService>();
 
+            services.AddScoped<IService_FService, Service_FService>();
+            services.AddScoped<IServiceUserService, ServiceUserService>();
+            services.AddScoped<IStoryService, StoryService>();
+            services.AddScoped<IVisaService, VisaService>();
+            services.AddScoped<IReportService, ReportService>();
+
             //---------------------for repstory
             services.AddScoped<IAboutUsRepository, AboutUsRepository>();
             services.AddScoped<ICommentReposetory, CommentReposetory>();
@@ -72,6 +78,13 @@ namespace InstaFinalProject.Api
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<ITestemonialRepository, TestemonialRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+
+            services.AddScoped<IService_FRepository, Service_FRepository>();
+            services.AddScoped<IServiceUserRepository, ServiceUserRepository>();
+            services.AddScoped<IStoryRepository, StoryRepository>();
+            services.AddScoped<IVisaRepository, VisaRepository>();
+            services.AddScoped<IReportRepository, ReportRepository>();
+
 
         }
 

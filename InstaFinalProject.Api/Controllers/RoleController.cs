@@ -20,7 +20,8 @@ namespace InstaFinalProject.Api.Controllers
         {
             _IRoleService = IRoleService;
         }
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("delete/{id}")]
         public bool deleteRole(int id)
         {
             return _IRoleService.deleteRole(id);

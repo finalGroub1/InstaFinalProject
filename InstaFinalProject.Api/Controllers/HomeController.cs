@@ -22,6 +22,7 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpDelete]
+        [Route("delete/{id}")]
         public bool deleteHome(int id)
         {
             return homeService.deleteHome(id);
@@ -41,7 +42,7 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpPost]
-        public bool insertHome(Home home)
+        public bool insertHome([FromBody] Home home)
         {
             return homeService.insertHome(home);
         }

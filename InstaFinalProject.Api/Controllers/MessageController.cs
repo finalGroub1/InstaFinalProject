@@ -21,6 +21,7 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpDelete]
+        [Route("delete/{id}")]
         public bool deleteMessage(int id)
         {
             return imessageService.deleteMessage(id);
@@ -40,7 +41,7 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpPost]
-        public bool insertMessage(Message message)
+        public bool insertMessage([FromBody] Message message)
         {
             return imessageService.insertMessage(message);
         }

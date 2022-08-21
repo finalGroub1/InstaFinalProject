@@ -1,0 +1,55 @@
+﻿using Core.Data;
+using Core.Service;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace InstaFinalProject.Api.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class StoryController : Controller
+    {
+        private readonly IStoryService storyService;
+
+        public StoryController(IStoryService storyService)
+        {
+            this.storyService = storyService;
+        }
+
+        [HttpDelete]
+        [Route("delete/{id}")]
+        public bool deleteStory(int id)
+        {
+            return storyService.deleteStory(id);
+        }
+
+        [HttpGet]
+        public List<Story> getallStory()
+        {
+            return storyService.getallStory();
+        }
+
+        [HttpGet]
+        [Route("GetById")]
+        public Story getbyidStory(int id)
+        {
+            return storyService.getbyidStory(id);
+        }
+
+        [HttpPost]
+        public bool insertStory([FromBody] Story story)
+        {
+            return storyService.insertStory(story);
+        }
+
+        [HttpPut]
+        public bool updateStory(Story story)
+        {
+            return storyService.updateStory(story);
+        }
+    }
+}

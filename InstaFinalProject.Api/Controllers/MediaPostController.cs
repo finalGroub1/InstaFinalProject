@@ -22,6 +22,7 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpDelete]
+        [Route("delete/{id}")]
         public bool deleteMediaPost(int id)
         {
             return mediaPostService.deleteMediaPost(id);
@@ -41,7 +42,7 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpPost]
-        public bool insertMediaPost(MediaPost media)
+        public bool insertMediaPost([FromBody] MediaPost media)
         {
             return mediaPostService.insertMediaPost(media);
         }

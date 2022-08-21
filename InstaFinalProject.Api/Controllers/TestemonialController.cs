@@ -21,6 +21,7 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpDelete]
+        [Route("delete/{id}")]
         public bool deleteTestemonial(int id)
         {
             return testemonialService.deleteTestemonial(id);
@@ -40,7 +41,7 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpPost]
-        public bool insertTestemonial(Testmonial testmonial)
+        public bool insertTestemonial([FromBody] Testmonial testmonial)
         {
             return testemonialService.insertTestemonial(testmonial);
         }

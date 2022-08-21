@@ -21,6 +21,7 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpDelete]
+        [Route("delete/{id}")]
         public bool deleteReport(int id)
         {
             return reportService.deleteReport(id);
@@ -40,7 +41,7 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpPost]
-        public bool insertReport(Report report)
+        public bool insertReport([FromBody] Report report)
         {
             return reportService.insertReport(report);
         }
