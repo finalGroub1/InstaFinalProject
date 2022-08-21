@@ -62,7 +62,7 @@ namespace Infra.Repository
             p.Add("@dTo", service.dateto, dbType: DbType.DateTime, direction: ParameterDirection.Input);
             p.Add("@P", service.price, dbType: DbType.Double, direction: ParameterDirection.Input);
 
-            var result = _IDBContext.Connection.ExecuteAsync("Service_F_package.insertService", p, commandType: CommandType.StoredProcedure);
+            var result = _IDBContext.Connection.ExecuteAsync("Service_F_package.updateService", p, commandType: CommandType.StoredProcedure);
             return true;
         }
     }

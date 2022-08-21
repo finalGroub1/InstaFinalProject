@@ -64,7 +64,7 @@ namespace Infra.Repository
             p.Add("@Sid", Interaction.story_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Idatelike", Interaction.datelike, dbType: DbType.DateTime, direction: ParameterDirection.Input);
 
-            var result = _IDBContext.Connection.ExecuteAsync("InterAction_package.insertInterAction", p, commandType: CommandType.StoredProcedure);
+            var result = _IDBContext.Connection.ExecuteAsync("InterAction_package.updateInterAction", p, commandType: CommandType.StoredProcedure);
             return true;
         }
     }

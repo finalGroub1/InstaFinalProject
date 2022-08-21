@@ -60,7 +60,7 @@ namespace Infra.Repository
             p.Add("@Pid", report.post_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Uid", report.user_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
 
-            var result = _IDBContext.Connection.ExecuteAsync("Report_F_package.insertReport", p, commandType: CommandType.StoredProcedure);
+            var result = _IDBContext.Connection.ExecuteAsync("Report_F_package.updateReport", p, commandType: CommandType.StoredProcedure);
             return true;
         }
     }
