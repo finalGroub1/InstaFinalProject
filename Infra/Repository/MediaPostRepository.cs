@@ -14,6 +14,11 @@ namespace Infra.Repository
     {
         private readonly IDBContext _IDBContext;
 
+        public MediaPostRepository(IDBContext iDBContext)
+        {
+            _IDBContext = iDBContext;
+        }
+
         public bool deleteMediaPost(int id)
         {
             var p = new DynamicParameters();
