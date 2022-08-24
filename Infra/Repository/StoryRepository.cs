@@ -1,5 +1,6 @@
 ﻿using Core.Common;
 using Core.Data;
+using Core.DTO;
 using Core.Repository;
 using Dapper;
 using System;
@@ -33,6 +34,12 @@ namespace Infra.Repository
             return result.ToList();
         }
 
+        public List<StoryUser> getStoryUser()
+        {
+            IEnumerable<StoryUser> result = _IDBContext.Connection.Query<StoryUser>("Story_package.getStoryUser", commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
+
         public Story getbyidStory(int id)
         {
             var p = new DynamicParameters();
@@ -40,6 +47,7 @@ namespace Infra.Repository
             var result = _IDBContext.Connection.Query<Story>("Story_package.getbyidStory", p, commandType: CommandType.StoredProcedure).FirstOrDefault();
             return result;
         }
+
 
         public bool insertStory(Story story)
         {

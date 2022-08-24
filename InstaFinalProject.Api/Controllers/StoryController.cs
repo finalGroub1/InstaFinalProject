@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using Core.DTO;
 using Core.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +32,13 @@ namespace InstaFinalProject.Api.Controllers
         public List<Story> getallStory()
         {
             return storyService.getallStory();
+        }
+
+        [HttpGet]
+        [Route("GetStoryUser")]
+        public List<StoryUser> getStoryUser()
+        {
+            return storyService.getStoryUser();
         }
 
         [HttpGet]

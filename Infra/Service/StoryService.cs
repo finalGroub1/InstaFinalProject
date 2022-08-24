@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using Core.DTO;
 using Core.Repository;
 using Core.Service;
 using System;
@@ -24,6 +25,11 @@ namespace Infra.Service
         public List<Story> getallStory()
         {
             return storyRepository.getallStory();
+        }
+
+        public List<StoryUser> getStoryUser()
+        {
+            return storyRepository.getStoryUser();
         }
 
         public Story getbyidStory(int id)

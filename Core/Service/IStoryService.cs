@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using Core.DTO;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,8 @@ namespace Core.Service
    public interface IStoryService
     {
         public List<Story> getallStory();
+
+        public List<StoryUser> getStoryUser();
 
         public bool updateStory(Story story);
 
