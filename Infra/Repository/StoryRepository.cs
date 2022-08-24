@@ -54,7 +54,7 @@ namespace Infra.Repository
             var p = new DynamicParameters();
             p.Add("@Cdate", story.createdate, dbType: DbType.DateTime, direction: ParameterDirection.Input);
             p.Add("@Uid", story.user_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
-            p.Add("@Sdesc", story.desc_, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Sdesc", story.descrption, dbType: DbType.String, direction: ParameterDirection.Input);
             p.Add("@Sstate", story.state, dbType: DbType.Int32, direction: ParameterDirection.Input);
 
             var result = _IDBContext.Connection.ExecuteAsync("Story_package.insertStory", p, commandType: CommandType.StoredProcedure);
@@ -67,7 +67,7 @@ namespace Infra.Repository
             p.Add("@idofStory", story.id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Cdate", story.createdate, dbType: DbType.DateTime, direction: ParameterDirection.Input);
             p.Add("@Uid", story.user_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
-            p.Add("@Sdesc", story.desc_, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Sdesc", story.descrption, dbType: DbType.String, direction: ParameterDirection.Input);
             p.Add("@Sstate", story.state, dbType: DbType.Int32, direction: ParameterDirection.Input);
 
             var result = _IDBContext.Connection.ExecuteAsync("Story_package.updateStory", p, commandType: CommandType.StoredProcedure);
