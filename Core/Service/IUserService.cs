@@ -16,5 +16,8 @@ namespace Core.Service
         public bool insertUser(User user);
 
         public User getbyidUser(int id);
+
+        public List<User> getbynameUser(User user);
+
     }
 }

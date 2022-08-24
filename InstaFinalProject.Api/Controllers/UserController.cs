@@ -47,6 +47,14 @@ namespace InstaFinalProject.Api.Controllers
             return UserService.insertUser(User);
         }
         //gdfgfdgdfgd
+
+        [HttpPost]
+        [Route("GetByName")]
+        public List<User> getbynameUser([FromBody] User user)
+        {
+            return UserService.getbynameUser(user);
+        }
+
         [HttpPut]
         public bool updateUser(User User)
         {

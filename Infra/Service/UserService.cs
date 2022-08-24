@@ -31,6 +31,11 @@ namespace Infra.Service
             return userRepository.getbyidUser(id);
         }
 
+        public List<User> getbynameUser(User user)
+        {
+            return userRepository.getbynameUser(user);
+        }
+
         public bool insertUser(User user)
         {
             return userRepository.insertUser(user);

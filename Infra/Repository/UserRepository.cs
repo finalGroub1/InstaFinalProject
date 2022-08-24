@@ -41,6 +41,14 @@ namespace Infra.Repository
             return result;
         }
 
+        public List<User> getbynameUser(User user)
+        {
+            var p = new DynamicParameters();
+            p.Add("@Uname", user.name, dbType: DbType.String, direction: ParameterDirection.Input);
+            IEnumerable<User> result = _IDBContext.Connection.Query<User>("User_F_package.getbynameUser", p, commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
+
         public bool insertUser(User user)
         {
             var p = new DynamicParameters();
