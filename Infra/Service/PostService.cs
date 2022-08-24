@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using Core.DTO;
 using Core.Repository;
 using Core.Service;
 using System;
@@ -24,6 +25,11 @@ namespace Infra.Service
         public List<Post> getallPost()
         {
             return postRepository.getallPost();
+        }
+
+        public List<PostUser> getallPostUser()
+        {
+            return postRepository.getallPostUser();
         }
 
         public Post getbyidPost(int id)

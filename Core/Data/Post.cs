@@ -10,11 +10,11 @@ namespace Core.Data
     {
         [Key]
         public int id { get; set; }
-        public DateTime createdate { get; set; }
-        public char state { get; set; }
-        public string desc_ { get; set; }
-        public char postion { get; set; }
-        public int user_id { get; set; }
+        public DateTime? createdate { get; set; }
+        public char? state { get; set; }
+        public string? desc_ { get; set; }
+        public char? postion { get; set; }
+        public int? user_id { get; set; }
 
         [ForeignKey("user_id")]
         public virtual User User { get; set; }

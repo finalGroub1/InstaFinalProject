@@ -1,5 +1,6 @@
 ﻿using Core.Common;
 using Core.Data;
+using Core.DTO;
 using Core.Repository;
 using Dapper;
 using System;
@@ -34,6 +35,11 @@ namespace Infra.Repository
             return result.ToList();
         }
 
+        public List<PostUser> getallPostUser()
+        {
+            IEnumerable<PostUser> result = _IDBContext.Connection.Query<PostUser>("Post_package.getUserPost", commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
         public Post getbyidPost(int id)
         {
             var p = new DynamicParameters();
