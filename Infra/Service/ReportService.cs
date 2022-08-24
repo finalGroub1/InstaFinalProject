@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using Core.DTO;
 using Core.Repository;
 using Core.Service;
 using System;
@@ -31,6 +32,11 @@ namespace Infra.Service
             return reportRepository.getbyidReport(id);
         }
 
+        public List<userreport_dto> getuserreport()
+        {
+            return reportRepository.getuserreport();
+        }
+
         public bool insertReport(Report report)
         {
             return reportRepository.insertReport(report);
@@ -39,6 +45,11 @@ namespace Infra.Service
         public bool updateReport(Report report)
         {
             return reportRepository.updateReport(report);
+        }
+
+        public bool userreport(userreport_dto ur)
+        {
+            return reportRepository.userreport(ur);
         }
     }
 }

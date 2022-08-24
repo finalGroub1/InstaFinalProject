@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using Core.DTO;
 using Core.Repository;
 using Core.Service;
 using System;
@@ -34,6 +35,11 @@ namespace Infra.Service
         public bool insertService(Service_F service)
         {
             return service_FRepository.insertService(service);
+        }
+
+        public List<serviceuser_dto> serviceuser()
+        {
+            return service_FRepository.serviceuser();
         }
 
         public bool updateService(Service_F service)

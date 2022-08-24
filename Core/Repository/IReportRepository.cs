@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using Core.DTO;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,5 +17,7 @@ namespace Core.Repository
         public bool insertReport(Report report);
 
         public Report getbyidReport(int id);
+        public bool userreport(userreport_dto ur);
+        public List<userreport_dto> getuserreport();
     }
 }

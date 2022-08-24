@@ -1,5 +1,6 @@
 ﻿using Core.Common;
 using Core.Data;
+using Core.DTO;
 using Core.Repository;
 using Dapper;
 using System;
@@ -64,6 +65,11 @@ namespace Infra.Repository
 
             var result = _IDBContext.Connection.ExecuteAsync("Service_F_package.updateService", p, commandType: CommandType.StoredProcedure);
             return true;
+        }
+        public List<serviceuser_dto> serviceuser()
+        {
+            IEnumerable<serviceuser_dto> result = _IDBContext.Connection.Query<serviceuser_dto>("Service_F_package.serviceuser", commandType: CommandType.StoredProcedure);
+            return result.ToList();
         }
     }
 }

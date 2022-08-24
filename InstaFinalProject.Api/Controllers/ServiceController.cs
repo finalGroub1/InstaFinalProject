@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using Core.DTO;
 using Core.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -38,6 +39,12 @@ namespace InstaFinalProject.Api.Controllers
         public Service_F getbyidService(int id)
         {
             return service_FService.getbyidService(id);
+        }
+        [HttpGet]
+        [Route("Getserviceuser")]
+        public List<serviceuser_dto> serviceuser()
+        {
+            return service_FService.serviceuser();
         }
 
         [HttpPost]

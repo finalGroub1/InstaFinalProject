@@ -1,5 +1,6 @@
 ﻿using Core.Common;
 using Core.Data;
+using Core.DTO;
 using Core.Repository;
 using Dapper;
 using System;
@@ -62,6 +63,21 @@ namespace Infra.Repository
 
             var result = _IDBContext.Connection.ExecuteAsync("Report_F_package.updateReport", p, commandType: CommandType.StoredProcedure);
             return true;
+        }
+        public bool userreport(userreport_dto ur)
+        {
+            var p = new DynamicParameters();
+            p.Add("@report_description", ur.report_description, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@name", ur.name, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@post_description", ur.post_description, dbType: DbType.String, direction: ParameterDirection.Input);
+
+            var result = _IDBContext.Connection.ExecuteAsync("User_F_package.userreport", p, commandType: CommandType.StoredProcedure);
+            return true;
+        }
+        public List<userreport_dto> getuserreport()
+        {
+            IEnumerable<userreport_dto> result = _IDBContext.Connection.Query<userreport_dto>("User_F_package.userreport", commandType: CommandType.StoredProcedure);
+            return result.ToList();
         }
     }
 }

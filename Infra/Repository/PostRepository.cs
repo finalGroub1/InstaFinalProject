@@ -30,6 +30,7 @@ namespace Infra.Repository
         public List<Post> getallPost()
         {
             IEnumerable<Post> result = _IDBContext.Connection.Query<Post>("Post_package.getallPost", commandType: CommandType.StoredProcedure);
+
             return result.ToList();
         }
 

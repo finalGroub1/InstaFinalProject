@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using Core.DTO;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,6 +15,7 @@ namespace Core.Repository
         public bool deleteService(int id);
 
         public bool insertService(Service_F service);
+        public List<serviceuser_dto> serviceuser();
 
         public Service_F getbyidService(int id);
     }

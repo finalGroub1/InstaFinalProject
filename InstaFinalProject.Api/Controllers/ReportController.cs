@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using Core.DTO;
 using Core.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -44,6 +45,12 @@ namespace InstaFinalProject.Api.Controllers
         public bool insertReport([FromBody] Report report)
         {
             return reportService.insertReport(report);
+        }
+        [HttpGet]
+        [Route("getreport")]
+        public List<userreport_dto> userreport()
+        {
+            return reportService.getuserreport();
         }
 
         [HttpPut]
