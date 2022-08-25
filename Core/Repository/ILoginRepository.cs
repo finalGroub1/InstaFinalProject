@@ -16,5 +16,9 @@ namespace Core.Repository
         public bool insertLogin(Login login);
 
         public Login getbyidLogin(int id);
+
+        //JWT
+        Login Auth(Login login);
+
     }
 }

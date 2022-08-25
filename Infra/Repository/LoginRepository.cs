@@ -67,5 +67,15 @@ namespace Infra.Repository
             var result = _IDBContext.Connection.ExecuteAsync("Login_package.updateLogin", p, commandType: CommandType.StoredProcedure);
             return true;
         }
+
+        //JWT
+        public Login Auth(Login login)
+        {
+            var p = new DynamicParameters();
+            p.Add("@Lemail", login.email, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Lpass", login.pass, dbType: DbType.String, direction: ParameterDirection.Input);
+            IEnumerable<Login> result = _IDBContext.Connection.Query<Login>("User_Login", p, commandType: CommandType.StoredProcedure);
+            return result.FirstOrDefault();
+        }
     }
 }

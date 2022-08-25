@@ -17,5 +17,9 @@ namespace Core.Service
 
         public Login getbyidLogin(int id);
 
+        //JWT
+        string Auth(Login login);
+
+
     }
 }
