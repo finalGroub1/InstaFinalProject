@@ -52,20 +52,6 @@ namespace InstaFinalProject.Api.Controllers
             return loginService.updateLogin(login);
         }
 
-        //JWT
-        [HttpPost]
-        [Route("JWT")]
-        public IActionResult Authen([FromBody] Login login)
-        {
-            var token = loginService.Auth(login);
-            if (token == null)
-            {
-                return Unauthorized();
-            }
-            else
-            {
-                return Ok(token);
-            }
-        }
+       
     }
 }
