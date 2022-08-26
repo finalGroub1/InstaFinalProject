@@ -12,7 +12,9 @@ namespace Core.Data
 
         public string name { get; set; }
 
-        public ICollection<Login> Login { get; set; }
+        //public ICollection<Login> Login { get; set; }
+        public ICollection<User> User { get; set; }
+
 
     }
 }

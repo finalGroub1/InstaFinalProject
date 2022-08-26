@@ -45,5 +45,9 @@ namespace Infra.Service
         {
             return userRepository.updateUser(user);
         }
+        public Int32 UserCount()
+        {
+            return userRepository.UserCount();
+        }
     }
 }

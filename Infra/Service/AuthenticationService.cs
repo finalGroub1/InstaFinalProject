@@ -35,7 +35,7 @@ namespace Infra.Service
                 {
                     new Claim(ClaimTypes.Email, result.email),
                     new Claim(ClaimTypes.Role, result.rolename),
-                    new Claim(ClaimTypes.Name, 1.ToString())
+                    new Claim(ClaimTypes.Name, result.id.ToString())
 
                 }
                 ),

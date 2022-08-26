@@ -61,6 +61,8 @@ namespace Infra.Repository
             p.Add("@Uemail", user.email, dbType: DbType.String, direction: ParameterDirection.Input);
             p.Add("@Uisblocked", user.isblock, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Uisactive", user.isactive, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@pass", user.password, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Rid", user.role_id, dbType: DbType.String, direction: ParameterDirection.Input);
 
             var result = _IDBContext.Connection.ExecuteAsync("User_F_package.insertUser", p, commandType: CommandType.StoredProcedure);
             return true;
@@ -79,9 +81,18 @@ namespace Infra.Repository
             p.Add("@Uemail", user.email, dbType: DbType.String, direction: ParameterDirection.Input);
             p.Add("@Uisblocked", user.isblock, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Uisactive", user.isactive, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@pass", user.password, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Rid", user.role_id, dbType: DbType.String, direction: ParameterDirection.Input);
 
             var result = _IDBContext.Connection.ExecuteAsync("User_F_package.updateUser", p, commandType: CommandType.StoredProcedure);
             return true;
+        }
+
+        public Int32 UserCount()
+        {
+            List<User> c = getallUser();
+
+            return  c.Count;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Core.Data
@@ -18,7 +19,12 @@ namespace Core.Data
         public string email { get; set; }
         public int isblock { get; set; }
         public int isactive { get; set; }
-    
+        public string password { get; set; }
+
+        public int role_id { get; set; }
+        [ForeignKey("role_id")]
+        public virtual Role Role { get; set; }
+
         public ICollection<Login> Logins { get; set; }
         public ICollection<ServiceUser> Serviceusers { get; set; }
         public ICollection<Post> Posts { get; set; }

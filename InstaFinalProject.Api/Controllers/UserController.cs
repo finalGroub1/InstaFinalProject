@@ -35,7 +35,7 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpGet]
-        [Route("GetById")]
+        [Route("{id}")]
         public User getbyidUser(int id)
         {
             return UserService.getbyidUser(id);
@@ -59,6 +59,12 @@ namespace InstaFinalProject.Api.Controllers
         public bool updateUser(User User)
         {
             return UserService.updateUser(User);
+        }
+        [HttpGet]
+        [Route("Count")]
+        public Int32 UserCount()
+        {
+            return UserService.UserCount();
         }
 
         [Route("uploadImage")]

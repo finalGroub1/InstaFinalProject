@@ -18,6 +18,7 @@ namespace Core.Service
         public User getbyidUser(int id);
 
         public List<User> getbynameUser(User user);
+        public Int32 UserCount();
 
     }
 }
