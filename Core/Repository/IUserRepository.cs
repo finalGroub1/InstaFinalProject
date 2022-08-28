@@ -9,6 +9,8 @@ namespace Core.Repository
     {
         public List<User> getallUser();
 
+        public List<User> getactiveUser();
+
         public bool updateUser(User user);
 
         public bool deleteUser(int id);

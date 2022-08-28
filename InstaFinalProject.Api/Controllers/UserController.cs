@@ -67,6 +67,13 @@ namespace InstaFinalProject.Api.Controllers
             return UserService.UserCount();
         }
 
+        [HttpGet]
+        [Route("getActive")]
+        public List<User> getactiveUser()
+        {
+            return UserService.getactiveUser();
+        }
+
         [Route("uploadImage")]
         [HttpPost]
         public User UploadImage()

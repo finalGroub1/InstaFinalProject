@@ -49,6 +49,12 @@ namespace Infra.Repository
             return result.ToList();
         }
 
+        public List<User> getactiveUser()
+        {
+            IEnumerable<User> result = _IDBContext.Connection.Query<User>("User_F_package.getactiveuser", commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
+
         public bool insertUser(User user)
         {
             var p = new DynamicParameters();

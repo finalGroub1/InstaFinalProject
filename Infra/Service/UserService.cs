@@ -21,6 +21,11 @@ namespace Infra.Service
             return userRepository.deleteUser(id);
         }
 
+        public List<User> getactiveUser()
+        {
+            return userRepository.getactiveUser();
+        }
+
         public List<User> getallUser()
         {
             return userRepository.getallUser();
