@@ -20,6 +20,7 @@ namespace InstaFinalProject.Api.Controllers
         {
             this.postService = postService;
         }
+        //..
 
         [HttpDelete]
         [Route("delete/{id}")]
