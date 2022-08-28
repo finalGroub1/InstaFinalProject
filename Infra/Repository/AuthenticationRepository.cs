@@ -25,7 +25,7 @@ namespace Infra.Repository
             parameter.Add("email1", login.email, dbType: DbType.String, direction: ParameterDirection.Input);
             parameter.Add("password1", login.password, dbType: DbType.String, direction: ParameterDirection.Input);
 
-            IEnumerable<Login_dto> result = dBContext.Connection.Query<Login_dto>("Login_package.Auth", parameter, commandType: CommandType.StoredProcedure);
+            IEnumerable<Login_dto> result = dBContext.Connection.Query<Login_dto>("User_F_package.Auth", parameter, commandType: CommandType.StoredProcedure);
 
             return result.FirstOrDefault();
         }
