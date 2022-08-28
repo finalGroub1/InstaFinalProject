@@ -14,5 +14,7 @@ namespace Core.DTO
         public int user_id { get; set; }
         public string name { get; set; }
         public string mediapath { get; set; }
+        public int post_id { get; set; }
+
     }
 }

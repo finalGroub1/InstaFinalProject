@@ -13,5 +13,7 @@ namespace Core.DTO
         public int state { get; set; }
         public string name { get; set; }
         public string mediapath { get; set; }
+        public int story_id { get; set; }
+
     }
 }
