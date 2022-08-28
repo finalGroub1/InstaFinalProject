@@ -1,5 +1,6 @@
 ﻿using Core.Common;
 using Core.Data;
+using Core.DTO;
 using Core.Repository;
 using Dapper;
 using System;
@@ -39,6 +40,12 @@ namespace Infra.Repository
             p.Add("@idofMediaPost", id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             var result = _IDBContext.Connection.Query<MediaPost>("MediaPost_package.getbyidMediaPost", p, commandType: CommandType.StoredProcedure).FirstOrDefault();
             return result;
+        }
+
+        public List<MediaStory> getMediaStory()
+        {
+            IEnumerable<MediaStory> result = _IDBContext.Connection.Query<MediaStory>("getmediastories", commandType: CommandType.StoredProcedure);
+            return result.ToList();
         }
 
         public bool insertMediaPost(MediaPost media)

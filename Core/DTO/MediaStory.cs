@@ -4,13 +4,14 @@ using System.Text;
 
 namespace Core.DTO
 {
-    public class StoryUser
+   public class MediaStory
     {
         public int id { get; set; }
-        public DateTime? createdate { get; set; }
+        public DateTime createdate { get; set; }
         public string description { get; set; }
         public int user_id { get; set; }
-        public int? state { get; set; }
+        public int state { get; set; }
         public string name { get; set; }
+        public string mediapath { get; set; }
     }
 }

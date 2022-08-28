@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using Core.DTO;
 using Core.Repository;
 using Core.Service;
 using System;
@@ -29,6 +30,11 @@ namespace Infra.Service
         public MediaPost getbyidMediaPost(int id)
         {
             return mediaPostRepository.getbyidMediaPost(id);
+        }
+
+        public List<MediaStory> getMediaStory()
+        {
+            return mediaPostRepository.getMediaStory();
         }
 
         public bool insertMediaPost(MediaPost media)

@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using Core.DTO;
 using Core.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -53,6 +54,12 @@ namespace InstaFinalProject.Api.Controllers
             return mediaPostService.updateMediaPost(media);
         }
 
+        [HttpGet]
+        [Route("mediaStory")]
+        public List<MediaStory> getMediaStory()
+        {
+            return mediaPostService.getMediaStory();
+        }
 
         [Route("uploadImage")]
         [HttpPost]
