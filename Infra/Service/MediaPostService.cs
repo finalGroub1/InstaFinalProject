@@ -37,6 +37,11 @@ namespace Infra.Service
             return mediaPostRepository.getMediaStory();
         }
 
+        public List<PostMediaDTO> getPostWithMedia()
+        {
+            return mediaPostRepository.getPostWithMedia();
+        }
+
         public bool insertMediaPost(MediaPost media)
         {
             return mediaPostRepository.insertMediaPost(media);

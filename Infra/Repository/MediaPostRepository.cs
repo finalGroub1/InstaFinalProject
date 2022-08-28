@@ -48,6 +48,12 @@ namespace Infra.Repository
             return result.ToList();
         }
 
+        public List<PostMediaDTO> getPostWithMedia()
+        {
+            IEnumerable<PostMediaDTO> result = _IDBContext.Connection.Query<PostMediaDTO>("getmediapost", commandType: CommandType.StoredProcedure);
+            return result.ToList();
+        }
+
         public bool insertMediaPost(MediaPost media)
         {
             var p = new DynamicParameters();

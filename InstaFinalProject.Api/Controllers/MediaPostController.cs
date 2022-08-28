@@ -61,6 +61,13 @@ namespace InstaFinalProject.Api.Controllers
             return mediaPostService.getMediaStory();
         }
 
+        [HttpGet]
+        [Route("mediaPost")]
+        public List<PostMediaDTO> getPostWithMedia()
+        {
+            return mediaPostService.getPostWithMedia();
+        }
+
         [Route("uploadImage")]
         [HttpPost]
         public MediaPost UploadImage()

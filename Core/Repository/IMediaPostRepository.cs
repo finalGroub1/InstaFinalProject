@@ -20,5 +20,8 @@ namespace Core.Repository
 
         public List<MediaStory> getMediaStory();
 
+        public List<PostMediaDTO> getPostWithMedia();
+
+
     }
 }
