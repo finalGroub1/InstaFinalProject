@@ -8,7 +8,7 @@ namespace Core.DTO
     {
         public int id { get; set; }
         public DateTime createdate { get; set; }
-        public string description { get; set; }
+        public string descrption { get; set; }
         public int user_id { get; set; }
         public int state { get; set; }
         public string name { get; set; }
