@@ -46,5 +46,10 @@ namespace Infra.Service
         {
             return storyRepository.updateStory(story);
         }
+
+        public bool blockStory(int id)
+        {
+            return storyRepository.blockStory(id);
+        }
     }
 }

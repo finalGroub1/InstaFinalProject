@@ -48,6 +48,13 @@ namespace InstaFinalProject.Api.Controllers
             return storyService.getbyidStory(id);
         }
 
+        [HttpGet]
+        [Route("block/{id}")]
+        public bool blockStory(int id)
+        {
+            return storyService.blockStory(id);
+        }
+
         [HttpPost]
         public bool insertStory([FromBody] Story story)
         {

@@ -18,6 +18,9 @@ namespace Core.Repository
 
         public bool insertStory(Story story);
 
-        public Story getbyidStory(int id); 
+        public Story getbyidStory(int id);
+
+        public bool blockStory(int id);
+
     }
 }

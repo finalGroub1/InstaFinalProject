@@ -19,5 +19,8 @@ namespace Core.Service
         public bool insertStory(Story story);
 
         public Story getbyidStory(int id);
+
+        public bool blockStory(int id);
+
     }
 }

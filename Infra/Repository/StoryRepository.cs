@@ -73,5 +73,30 @@ namespace Infra.Repository
             var result = _IDBContext.Connection.ExecuteAsync("Story_package.updateStory", p, commandType: CommandType.StoredProcedure);
             return true;
         }
+
+        public bool blockStory(int id)
+        {
+            var p2 = new DynamicParameters();
+            p2.Add("@idofStory", id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            var story = _IDBContext.Connection.Query<Story>("Story_package.getbyidStory", p2, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            if (story.state == 0)
+            {
+                story.state = 1;
+            }
+            else if (story.state == 1)
+            {
+                story.state = 0;
+            }
+
+            var p = new DynamicParameters();
+            p.Add("@idofStory", story.id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@Cdate", story.createdate, dbType: DbType.DateTime, direction: ParameterDirection.Input);
+            p.Add("@Uid", story.user_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@Sdesc", story.descrption, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Sstate", story.state, dbType: DbType.Int32, direction: ParameterDirection.Input);
+
+            var result = _IDBContext.Connection.ExecuteAsync("Story_package.updateStory", p, commandType: CommandType.StoredProcedure);
+            return true;
+        }
     }
 }
