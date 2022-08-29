@@ -52,9 +52,9 @@ namespace Infra.Repository
         {
             var p = new DynamicParameters();
             p.Add("@Pcreatedate", post.createdate, dbType: DbType.DateTime, direction: ParameterDirection.Input);
-            p.Add("@Pstate", post.state, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Pstate", post.state, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Pdesc_", post.desc_, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@Ppostion", post.postion, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Ppostion", post.postion, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Puser_id", post.user_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
 
             var result = _IDBContext.Connection.ExecuteAsync("Post_package.insertPost", p, commandType: CommandType.StoredProcedure);
@@ -66,9 +66,9 @@ namespace Infra.Repository
             var p = new DynamicParameters();
             p.Add("@Pid", post.id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Pcreatedate", post.createdate, dbType: DbType.DateTime, direction: ParameterDirection.Input);
-            p.Add("@Pstate", post.state, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Pstate", post.state, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Pdesc_", post.desc_, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@Ppostion", post.postion, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Ppostion", post.postion, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Puser_id", post.user_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
 
             var result = _IDBContext.Connection.ExecuteAsync("Post_package.updatePost", p, commandType: CommandType.StoredProcedure);

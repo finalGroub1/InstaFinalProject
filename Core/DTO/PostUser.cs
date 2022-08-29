@@ -8,9 +8,9 @@ namespace Core.DTO
     {
         public int id { get; set; }
         public DateTime? createdate { get; set; }
-        public char? state { get; set; }
+        public int? state { get; set; }
         public string desc_ { get; set; }
-        public char? postion { get; set; }
+        public int? postion { get; set; }
         public string username { get; set; }
     }
 }
