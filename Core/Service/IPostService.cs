@@ -19,5 +19,8 @@ namespace Core.Service
         public bool insertPost(Post post);
 
         public Post getbyidPost(int id);
+
+        public bool blockPost(int id);
+
     }
 }

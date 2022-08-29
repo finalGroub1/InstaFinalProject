@@ -49,6 +49,13 @@ namespace InstaFinalProject.Api.Controllers
             return postService.getbyidPost(id);
         }
 
+        [HttpGet]
+        [Route("block/{id}")]
+        public bool blockPost(int id)
+        {
+            return postService.blockPost(id);
+        }
+
         [HttpPost]
         public bool insertPost([FromBody] Post post)
         {

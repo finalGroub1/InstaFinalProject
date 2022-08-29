@@ -17,6 +17,11 @@ namespace Infra.Service
             this.postRepository = postRepository;
         }
 
+        public bool blockPost(int id)
+        {
+            return postRepository.blockPost(id);
+        }
+
         public bool deletePost(int id)
         {
             return postRepository.deletePost(id);
