@@ -18,6 +18,8 @@ namespace Core.Repository
         public bool insertUser(User user);
 
         public User getbyidUser(int id);
+        public bool blockUser(int id);
+
 
         public List<User> getbynameUser(User user);
         public Int32 UserCount();

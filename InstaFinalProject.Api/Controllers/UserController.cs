@@ -60,6 +60,14 @@ namespace InstaFinalProject.Api.Controllers
         {
             return UserService.updateUser(User);
         }
+
+        [HttpGet]
+        [Route("block/{id}")]
+        public bool blockUser(int id)
+        {
+            return UserService.blockUser(id);
+        }
+
         [HttpGet]
         [Route("Count")]
         public Int32 UserCount()

@@ -16,6 +16,11 @@ namespace Infra.Service
             this.userRepository = userRepository;
         }
 
+        public bool blockUser(int id)
+        {
+            return userRepository.blockUser(id);
+        }
+
         public bool deleteUser(int id)
         {
             return userRepository.deleteUser(id);

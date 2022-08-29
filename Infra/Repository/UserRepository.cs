@@ -88,7 +88,39 @@ namespace Infra.Repository
             p.Add("@Uisblocked", user.isblock, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Uisactive", user.isactive, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@pass", user.password, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@Rid", user.role_id, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Rid", user.role_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+
+            var result = _IDBContext.Connection.ExecuteAsync("User_F_package.updateUser", p, commandType: CommandType.StoredProcedure);
+            return true;
+        }
+
+        public bool blockUser(int id)
+        {
+            var p2 = new DynamicParameters();
+            p2.Add("@Uid", id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            var user = _IDBContext.Connection.Query<User>("User_F_package.getbyidUser", p2, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            if (user.role_id == 3) {
+                user.role_id = 2;
+            
+            }
+            else if (user.role_id ==2)
+            {
+                user.role_id = 3;
+
+            }
+            var p = new DynamicParameters();
+            p.Add("@Uid", user.id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@Uname", user.name, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Uphone", user.phone, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Uimg", user.imge, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Uaddres", user.addres, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Ugender", user.gender, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Uusername", user.username, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Uemail", user.email, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Uisblocked", user.isblock, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@Uisactive", user.isactive, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@pass", user.password, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Rid",user.role_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
 
             var result = _IDBContext.Connection.ExecuteAsync("User_F_package.updateUser", p, commandType: CommandType.StoredProcedure);
             return true;
