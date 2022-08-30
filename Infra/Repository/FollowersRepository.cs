@@ -29,8 +29,29 @@ namespace Infra.Repository
 
         public List<Followers> getallFollowers()
         {
+            
+            IEnumerable<User> allUser = _IDBContext.Connection.Query<User>("User_F_package.getallUser", commandType: CommandType.StoredProcedure).ToList();
+
+
+
+    //////////////////////////////////////////////////////////////////////
+
             IEnumerable<Followers> result = _IDBContext.Connection.Query<Followers>("Followers_package.getallFollowers", commandType: CommandType.StoredProcedure);
             return result.ToList();
+        }
+
+        public List<User> getalluserToFollow(int userid)
+        {
+
+            IEnumerable<User> allUserfollow = _IDBContext.Connection.Query<User>("User_F_package.getallUser", commandType: CommandType.StoredProcedure).ToList();
+            //***************//
+            
+            var allfollowers = getallFollowers();
+            var followUp = allfollowers.Where(i => i.user_id_up == userid).ToList();
+
+            var result = allfollowers.Except(followUp);
+
+            return null;
         }
 
         public Followers getbyidFollowers(int id)
