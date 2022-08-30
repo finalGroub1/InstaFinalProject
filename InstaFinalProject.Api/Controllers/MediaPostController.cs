@@ -74,16 +74,22 @@ namespace InstaFinalProject.Api.Controllers
         {
             try
             {
-                var file = Request.Form.Files[0];
-                var fileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                var fullPath = Path.Combine("Src", fileName);
-                using (var stream = new FileStream(fullPath, FileMode.Create))
-                {
-                    file.CopyTo(stream);
-                }
-                MediaPost item = new MediaPost();
-                item.mediapath = fileName;
-                return item;
+                var file = Request.Form.Files;
+                for (int i = 0; i < file.Count; i++)
+                {   
+                    
+                        var fileName = Guid.NewGuid().ToString() + "_" + file[i].FileName;
+                        var fullPath = Path.Combine(@"D:\edu\EduSite\src\assets\images", fileName);
+                        using (var stream = new FileStream(fullPath, FileMode.Create))
+                        {
+                            file[i].CopyTo(stream);
+                        }
+                        MediaPost item = new MediaPost();
+                        item.mediapath = fileName;
+                        return item;
+
+                    
+                }      
 
             }
             catch (Exception e)
@@ -91,6 +97,7 @@ namespace InstaFinalProject.Api.Controllers
 
                 return null;
             }
+            return null;
         }
     }
 }

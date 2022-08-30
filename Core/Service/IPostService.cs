@@ -16,7 +16,7 @@ namespace Core.Service
 
         public bool deletePost(int id);
 
-        public bool insertPost(Post post);
+        public bool insertPost(PostMediaDTO post);
 
         public Post getbyidPost(int id);
 

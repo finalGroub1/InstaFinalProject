@@ -58,8 +58,8 @@ namespace Infra.Repository
         {
             var p = new DynamicParameters();
             p.Add("@mPath", media.mediapath, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@Pid",media.post_id, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@Sid", media.story_id, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Pid",media.post_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@Sid", media.story_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
 
 
             var result = _IDBContext.Connection.ExecuteAsync("MediaPost_package.insertMediaPost", p, commandType: CommandType.StoredProcedure);

@@ -42,7 +42,7 @@ namespace Infra.Service
             return postRepository.getbyidPost(id);
         }
 
-        public bool insertPost(Post post)
+        public bool insertPost(PostMediaDTO post)
         {
             return postRepository.insertPost(post);
         }

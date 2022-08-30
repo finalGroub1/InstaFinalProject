@@ -57,7 +57,7 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpPost]
-        public bool insertPost([FromBody] Post post)
+        public bool insertPost([FromBody] PostMediaDTO post)
         {
             return postService.insertPost(post);
         }
