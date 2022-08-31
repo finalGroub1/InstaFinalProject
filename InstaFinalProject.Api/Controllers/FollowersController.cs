@@ -32,6 +32,24 @@ namespace InstaFinalProject.Api.Controllers
         {
             return followersService.getallFollowers();
         }
+        [HttpGet]
+        [Route("getfollower/{userid}")]
+        public List<User> getalluserToFollow(int userid)
+        {
+            return followersService.getalluserToFollow(userid);
+        }
+        [HttpGet]
+        [Route("getfollowthat/{userid}")]
+        public List<User> getalluserThatFollow(int userid)
+        {
+            return followersService.getalluserThatFollow(userid);
+        }
+        [HttpGet]
+        [Route("getfollowing/{userid}")]
+        public List<User> getalluserFollowing(int userid)
+        {
+            return followersService.getalluserFollowing(userid);
+        }
 
         [HttpGet]
         [Route("GetById")]

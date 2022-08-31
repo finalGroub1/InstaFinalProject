@@ -30,6 +30,18 @@ namespace Infra.Service
         {
             return followersRepository.getbyidFollowers(id);
         }
+        public List<User> getalluserToFollow(int userid)
+        {
+            return followersRepository.getalluserToFollow(userid);
+        }
+        public List<User> getalluserFollowing(int userid)
+        {
+            return followersRepository.getalluserFollowing(userid);
+        }
+        public List<User> getalluserThatFollow(int userid)
+        {
+            return followersRepository.getalluserThatFollow(userid);
+        }
 
         public bool insertFollowers(Followers followers)
         {

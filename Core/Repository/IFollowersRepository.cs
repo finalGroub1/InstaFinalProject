@@ -16,5 +16,8 @@ namespace Core.Repository
         public bool insertFollowers(Followers followers);
 
         public Followers getbyidFollowers(int id);
+        public List<User> getalluserToFollow(int userid);
+        public List<User> getalluserFollowing(int userid);
+        public List<User> getalluserThatFollow(int userid);
     }
 }
