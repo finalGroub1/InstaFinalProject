@@ -18,6 +18,8 @@ namespace Core.Data
         public int user_id_back { get; set; }
         [ForeignKey("user_id_back")]
         public virtual User UserBack { get; set; }
+        [NotMapped]
+        public int isfollowBack { get; set; }
 
     }
 }

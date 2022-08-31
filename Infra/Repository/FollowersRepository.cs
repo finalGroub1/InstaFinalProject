@@ -61,13 +61,29 @@ namespace Infra.Repository
 
 
             var allfollowers = getallFollowers();
-            var followUp = allfollowers.Where(i => i.user_id_back == userid).ToList();
             
+            var followUp = allfollowers.Where(i => i.user_id_back == userid).ToList();
+            //--------------------------------------------
+            foreach( Followers item in allfollowers)
+            {
+                    foreach (Followers item2 in followUp)
+                    {
+                       if (item2.user_id_up==item.user_id_back )
+                        {
+                          item2.isfollowBack = 1;
+                        }
+                    }
 
-            var followUpObject = allUserfollow.Where(x => followUp.Any(y => y.user_id_up.Equals(x.id)));
+            }
+            //-------------------------------------------
+            var followUpObject = allUserfollow.Where(x => followUp.Any(y => y.user_id_up.Equals(x.id))).ToList();
+            for(int i=0; i<=followUp.Count-1;i++)
+            {
+                followUpObject[i].isfollowBack = followUp[i].isfollowBack;
+            }
             
             var result = followUpObject.Where(x => x.id != userid);
-
+            //----------------------------------------------------------------
             return result.ToList();
         }
         public List<User> getalluserThatFollow(int userid) // الناس اللي متابعهم

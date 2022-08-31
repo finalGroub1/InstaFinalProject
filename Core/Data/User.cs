@@ -20,6 +20,8 @@ namespace Core.Data
         public int isblock { get; set; }
         public int isactive { get; set; }
         public string password { get; set; }
+        [NotMapped]
+        public int isfollowBack { get; set; }
 
         public int role_id { get; set; }
         [ForeignKey("role_id")]
