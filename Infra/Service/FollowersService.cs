@@ -16,9 +16,9 @@ namespace Infra.Service
             this.followersRepository = followersRepository;
         }
 
-        public bool deleteFollowers(int id)
+        public bool deleteFollowers(int id, int idup)
         {
-            return followersRepository.deleteFollowers(id);
+            return followersRepository.deleteFollowers(id, idup);
         }
 
         public List<Followers> getallFollowers()

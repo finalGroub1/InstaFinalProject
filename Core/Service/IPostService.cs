@@ -21,6 +21,7 @@ namespace Core.Service
         public Post getbyidPost(int id);
 
         public bool blockPost(int id);
+        public List<postViewModel> getallMyPosts(int id);
 
     }
 }

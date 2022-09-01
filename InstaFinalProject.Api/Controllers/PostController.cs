@@ -55,6 +55,12 @@ namespace InstaFinalProject.Api.Controllers
         {
             return postService.blockPost(id);
         }
+        [HttpGet]
+        [Route("myposts/{id}")]
+        public List<postViewModel> getallMyPosts(int id)
+        {
+            return postService.getallMyPosts(id);
+        }
 
         [HttpPost]
         public bool insertPost([FromBody] PostMediaDTO post)

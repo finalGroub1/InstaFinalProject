@@ -19,10 +19,13 @@ namespace Infra.Repository
             _IDBContext = iDBContext;
         }
 
-        public bool deleteFollowers(int id)
+        public bool deleteFollowers(int id, int idup)
         {
+            var egg = getallFollowers();
+            var egg2 = egg.Where(i => i.user_id_back == id && i.user_id_up == idup).FirstOrDefault();
+
             var p = new DynamicParameters();
-            p.Add("@idofFollowers", id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@idofFollowers", egg2.id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             var result = _IDBContext.Connection.ExecuteAsync("Followers_package.deleteFollowers", p, commandType: CommandType.StoredProcedure);
             return true;
         }
@@ -72,6 +75,10 @@ namespace Infra.Repository
                         {
                           item2.isfollowBack = 1;
                         }
+                    else if(item2.user_id_back == item.user_id_up)
+                    {
+                        item2.isfollowBack = 0;
+                    }
                     }
 
             }

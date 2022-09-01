@@ -11,7 +11,7 @@ namespace Core.Repository
 
         public bool updateFollowers(Followers followers);
 
-        public bool deleteFollowers(int id);
+        public bool deleteFollowers(int id, int idup);
 
         public bool insertFollowers(Followers followers);
 

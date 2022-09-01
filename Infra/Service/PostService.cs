@@ -31,6 +31,10 @@ namespace Infra.Service
         {
             return postRepository.getallPost();
         }
+        public List<postViewModel> getallMyPosts(int id)
+        {
+            return postRepository.getallMyPosts(id);
+        }
 
         public List<PostUser> getallPostUser()
         {

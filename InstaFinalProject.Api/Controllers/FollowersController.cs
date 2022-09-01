@@ -21,10 +21,10 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("delete/{id}")]
-        public bool deleteFollowers(int id)
+        [Route("delete/{id}/{idup}")]
+        public bool deleteFollowers(int id, int idup)
         {
-            return followersService.deleteFollowers(id);
+            return followersService.deleteFollowers(id, idup);
         }
 
         [HttpGet]
