@@ -13,6 +13,8 @@ namespace Core.Data
         public string mediapath { get; set; }
         public int post_id { get; set; }
         public int story_id { get; set; }
+        [NotMapped]
+        public int isVideo { get; set; }
 
         [ForeignKey("post_id")]
         public virtual Post Post { get; set; }

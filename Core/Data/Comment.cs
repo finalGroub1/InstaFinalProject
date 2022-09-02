@@ -11,10 +11,10 @@ namespace Core.Data
         [Key]
         public int id { get; set; }
         public string desc_ { get; set; }
-        public DateTime date_ { get; set; }
+        public DateTime? date_ { get; set; }
         public int post_id { get; set; }
         public int user_id { get; set; }
-        public int comment_reply_id { get; set; }
+        public int? comment_reply_id { get; set; }
 
 
         [ForeignKey("post_id")]

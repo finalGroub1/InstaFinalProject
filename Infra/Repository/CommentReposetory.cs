@@ -45,7 +45,7 @@ namespace Infra.Repository
         {
             var p = new DynamicParameters();
             p.Add("@des", comment.desc_, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@cDate", comment.date_, dbType: DbType.DateTime, direction: ParameterDirection.Input);
+            p.Add("@cDate", DateTime.Now, dbType: DbType.DateTime, direction: ParameterDirection.Input);
             p.Add("@Pid", comment.post_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Uid", comment.user_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@cReplayid", comment.comment_reply_id, dbType: DbType.Int32, direction: ParameterDirection.Input);

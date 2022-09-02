@@ -63,7 +63,7 @@ namespace Infra.Repository
         public List<postViewModel> getallMyPosts(int id)
         {
             var postViewModelList = new List<postViewModel>();
-            IEnumerable<Post> post = _IDBContext.Connection.Query<Post>("Post_package.getallPost", commandType: CommandType.StoredProcedure).Where(x=>x.user_id == id).ToList();
+            IEnumerable<Post> post = _IDBContext.Connection.Query<Post>("Post_package.getallPost", commandType: CommandType.StoredProcedure).Where(x=>x.user_id == id).OrderByDescending(x=> x.createdate).ToList();
             IEnumerable<Comment> comment = _IDBContext.Connection.Query<Comment>("Comment_F_package.getallComment", commandType: CommandType.StoredProcedure);
             IEnumerable<MediaPost> mediaPost = _IDBContext.Connection.Query<MediaPost>("MediaPost_package.getallMediaPost", commandType: CommandType.StoredProcedure);
             IEnumerable<Interaction> interAction = _IDBContext.Connection.Query<Interaction>("InterAction_package.getallInterAction", commandType: CommandType.StoredProcedure);
@@ -75,9 +75,27 @@ namespace Infra.Repository
             //---------------------------------------------
             foreach (var item in post)
             {
-                var comm = comment.Where(x => x.post_id == item.id).ToList();
+                var comm = comment.Where(x => x.post_id == item.id).OrderByDescending(x=> x.date_).ToList();
                 var med = mediaPost.Where(x => x.post_id == item.id).ToList();
                 var inter = interAction.Where(x => x.post_id == item.id).ToList();
+
+                //-----------------------------------------------//
+                foreach (var item2 in comm)
+                {
+                    item2.User = getbyidUser(item2.user_id);
+                }
+                //------------------------------------------------//
+                foreach (var item3 in med)
+                {
+                    if (item3.mediapath.Contains("mp4"))
+                    {
+                        item3.isVideo = 1;
+                    }
+                    else
+                    {
+                        item3.isVideo = 0;
+                    }
+                }
 
                 postViewModel Model = new postViewModel()
                 {
@@ -86,7 +104,9 @@ namespace Infra.Repository
                     comment = comm,
                     mediaPost = med,
                     interaction = inter,
-                    user = user
+                    user = user,
+                    LikeCount = inter.Count(),
+                    CommentCount = comm.Count()
                 };
 
                 postViewModelList.Add(Model);
@@ -95,6 +115,13 @@ namespace Infra.Repository
             
 
             return postViewModelList;
+        }
+        public User getbyidUser(int id)
+        {
+            var p = new DynamicParameters();
+            p.Add("@Uid", id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            var result = _IDBContext.Connection.Query<User>("User_F_package.getbyidUser", p, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            return result;
         }
 
         public List<PostUser> getallPostUser()

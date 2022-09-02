@@ -12,5 +12,8 @@ namespace Core.DTO
         public List<Comment> comment { get; set; }
         public List<Interaction> interaction { get; set; }
         public User user { get; set; }
+        public int LikeCount { get; set; }
+        public int CommentCount { get; set; }
+
     }
 }
