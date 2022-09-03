@@ -27,23 +27,55 @@ namespace Infra.Repository
             var result = _IDBContext.Connection.ExecuteAsync("Report_F_package.deleteReport", p, commandType: CommandType.StoredProcedure);
             return true;
         }
-//----------------vxc
+
+     
+        public User getbyidUser(int id)
+        {
+            var p = new DynamicParameters();
+            p.Add("@Uid", id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            var result = _IDBContext.Connection.Query<User>("User_F_package.getbyidUser", p, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            return result;
+        }
+
+        public Post getbyidPost(int id)
+        {
+            var p = new DynamicParameters();
+            p.Add("@Pid", id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            var result = _IDBContext.Connection.Query<Post>("Post_package.getbyidPost", p, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            return result;
+        }
         public List<AdminReportDto> getallReport()
         {
-           var result = _IDBContext.Connection.Query<Report>("Report_F_package.getallReport", commandType: CommandType.StoredProcedure).OrderBy(m=>m.post_id).ToList();
+            var result = _IDBContext.Connection.Query<Report>("Report_F_package.getallReport", commandType: CommandType.StoredProcedure).OrderBy(m => m.post_id).ToList();
             var postIdList = new List<int>();
             int prevPostId = 0;
-            postIdList.Add(result[0].post_id);            //--------------------------------------------------------//
-            for (int i=0;i<=result.Count()-1; i++)
+            //------------------------------------
+            postIdList.Add(result[0].post_id);
+            //--------------------------------------
+            var dtoList = new List<AdminReportDto>();
+            //--------------------------------------------------------
+            for (int i = 0; i <= result.Count() - 1; i++)
             {
+                result[i].User = getbyidUser(result[i].user_id);
                 prevPostId = result[i].post_id;
-                if(postIdList[i]!=prevPostId)
+                if (postIdList[i] != prevPostId)
                 {
                     postIdList.Add(result[i].post_id);
                 }
             }
+            //-------------------------------------------
+            for (int i = 0; i < postIdList.Count(); i++)
+            {
 
-            return result.ToList();
+                AdminReportDto model = new AdminReportDto()
+                {
+                    post = getbyidPost(postIdList[i]),
+                    report = result.Where(x => x.post_id == postIdList[i]).ToList()
+                };
+                dtoList.Add(model);
+            }
+
+            return dtoList;
         }
 
         public Report getbyidReport(int id)
@@ -53,7 +85,6 @@ namespace Infra.Repository
             var result = _IDBContext.Connection.Query<Report>("Report_F_package.getbyidReport", p, commandType: CommandType.StoredProcedure).FirstOrDefault();
             return result;
         }
-
         public bool insertReport(Report report)
         {
             var p = new DynamicParameters();
