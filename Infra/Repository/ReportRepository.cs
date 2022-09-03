@@ -58,7 +58,7 @@ namespace Infra.Repository
             {
                 result[i].User = getbyidUser(result[i].user_id);
                 prevPostId = result[i].post_id;
-                if (postIdList[i] != prevPostId)
+                if (i==result.Count-2 &&result[i+1].post_id != prevPostId)
                 {
                     postIdList.Add(result[i].post_id);
                 }
@@ -70,7 +70,8 @@ namespace Infra.Repository
                 AdminReportDto model = new AdminReportDto()
                 {
                     post = getbyidPost(postIdList[i]),
-                    report = result.Where(x => x.post_id == postIdList[i]).ToList()
+                    report = result.Where(x => x.post_id == postIdList[i]).ToList(),
+                    ReportCount= result.Where(x => x.post_id == postIdList[i]).Count()
                 };
                 dtoList.Add(model);
             }
