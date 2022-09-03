@@ -27,18 +27,23 @@ namespace Infra.Repository
             var result = _IDBContext.Connection.ExecuteAsync("Report_F_package.deleteReport", p, commandType: CommandType.StoredProcedure);
             return true;
         }
-
-        public List<AdminReportDto> getallReport()
+//----------------vxc
+        public bool getallReport()
         {
-            IEnumerable<Report> result = _IDBContext.Connection.Query<Report>("Report_F_package.getallReport", commandType: CommandType.StoredProcedure);
-            //--------------------------------------------------------//
-            foreach (var item in result)
+           var result = _IDBContext.Connection.Query<Report>("Report_F_package.getallReport", commandType: CommandType.StoredProcedure).OrderBy(m=>m.post_id).ToList();
+            var postIdList = new List<int>();
+            int prevPostId = 0;
+            postIdList.Add(result[0].post_id);            //--------------------------------------------------------//
+            for (int i=0;i<=result.Count()-1; i++)
             {
-                //var filteredProjects = projects.Where(p => filteredTags.All(tag => p.Tags.Contains(tag)));
-
-                var report = result.Where(x=> x.post_id == )
+                prevPostId = result[i].post_id;
+                if(postIdList[i]!=prevPostId)
+                {
+                    postIdList.Add(result[i].post_id);
+                }
             }
-            return result.ToList();
+
+            return true;
         }
 
         public Report getbyidReport(int id)
