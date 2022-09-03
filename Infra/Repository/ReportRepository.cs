@@ -45,24 +45,31 @@ namespace Infra.Repository
             return result;
         }
         public List<AdminReportDto> getallReport()
-        {
-            var result = _IDBContext.Connection.Query<Report>("Report_F_package.getallReport", commandType: CommandType.StoredProcedure).OrderBy(m => m.post_id).ToList();
+        { 
+            var report = _IDBContext.Connection.Query<Report>("Report_F_package.getallReport", commandType: CommandType.StoredProcedure).OrderBy(m => m.post_id).ToList();
+            //------------------------------------
             var postIdList = new List<int>();
+   
             int prevPostId = 0;
             //------------------------------------
-            postIdList.Add(result[0].post_id);
+            postIdList.Add(report[0].post_id);
             //--------------------------------------
             var dtoList = new List<AdminReportDto>();
             //--------------------------------------------------------
-            for (int i = 0; i <= result.Count() - 1; i++)
+            for (int i = 0; i < report.Count(); i++)
             {
-                result[i].User = getbyidUser(result[i].user_id);
-                prevPostId = result[i].post_id;
-                if (i==result.Count-2 &&result[i+1].post_id != prevPostId)
+                report[i].User = getbyidUser(report[i].user_id);
+                //---------------------------------
+                prevPostId = report[i].post_id;
+                //-------------------
+                var cheack= postIdList.Where(x => x == prevPostId).FirstOrDefault();
+                if(cheack==0)
                 {
-                    postIdList.Add(result[i].post_id);
+                    postIdList.Add(report[i].post_id);
                 }
+
             }
+          
             //-------------------------------------------
             for (int i = 0; i < postIdList.Count(); i++)
             {
@@ -70,8 +77,8 @@ namespace Infra.Repository
                 AdminReportDto model = new AdminReportDto()
                 {
                     post = getbyidPost(postIdList[i]),
-                    report = result.Where(x => x.post_id == postIdList[i]).ToList(),
-                    ReportCount= result.Where(x => x.post_id == postIdList[i]).Count()
+                    report = report.Where(x => x.post_id == postIdList[i]).ToList(),
+                    ReportCount= report.Where(x => x.post_id == postIdList[i]).Count()
                 };
                 dtoList.Add(model);
             }
