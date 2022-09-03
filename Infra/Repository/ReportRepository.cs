@@ -28,9 +28,16 @@ namespace Infra.Repository
             return true;
         }
 
-        public List<Report> getallReport()
+        public List<AdminReportDto> getallReport()
         {
             IEnumerable<Report> result = _IDBContext.Connection.Query<Report>("Report_F_package.getallReport", commandType: CommandType.StoredProcedure);
+            //--------------------------------------------------------//
+            foreach (var item in result)
+            {
+                //var filteredProjects = projects.Where(p => filteredTags.All(tag => p.Tags.Contains(tag)));
+
+                var report = result.Where(x=> x.post_id == )
+            }
             return result.ToList();
         }
 

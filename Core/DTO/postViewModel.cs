@@ -14,6 +14,7 @@ namespace Core.DTO
         public User user { get; set; }
         public int LikeCount { get; set; }
         public int CommentCount { get; set; }
+        public DateTime? ModelPostDate { get; set; }
 
     }
 }

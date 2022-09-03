@@ -61,6 +61,12 @@ namespace InstaFinalProject.Api.Controllers
         {
             return postService.getallMyPosts(id);
         }
+        [HttpGet]
+        [Route("followersPosts/{id}")]
+        public List<postViewModel> getallFollowingPosts(int id)
+        {
+            return postService.getallFollowingPosts(id);
+        }
 
         [HttpPost]
         public bool insertPost([FromBody] PostMediaDTO post)

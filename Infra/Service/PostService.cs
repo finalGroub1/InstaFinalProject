@@ -40,6 +40,10 @@ namespace Infra.Service
         {
             return postRepository.getallPostUser();
         }
+        public List<postViewModel> getallFollowingPosts(int id)
+        {
+            return postRepository.getallFollowingPosts(id);
+        }
 
         public Post getbyidPost(int id)
         {
