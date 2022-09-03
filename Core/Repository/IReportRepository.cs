@@ -8,7 +8,7 @@ namespace Core.Repository
 {
   public  interface IReportRepository
     {
-        public bool  getallReport();
+        public List<AdminReportDto> getallReport();
 
         public bool updateReport(Report report);
 

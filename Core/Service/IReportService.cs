@@ -8,7 +8,7 @@ namespace Core.Service
 {
    public  interface IReportService
     {
-        public List<Report> getallReport();
+        public List<AdminReportDto> getallReport();
 
         public bool updateReport(Report report);
 

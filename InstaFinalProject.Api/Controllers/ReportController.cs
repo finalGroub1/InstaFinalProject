@@ -29,7 +29,7 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpGet]
-        public List<Report> getallReport()
+        public List<AdminReportDto> getallReport()
         {
             return reportService.getallReport();
         }

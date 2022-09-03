@@ -22,7 +22,7 @@ namespace Infra.Service
             return reportRepository.deleteReport(id);
         }
 
-        public List<Report> getallReport()
+        public List<AdminReportDto> getallReport()
         {
             return reportRepository.getallReport();
         }

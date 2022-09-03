@@ -28,7 +28,7 @@ namespace Infra.Repository
             return true;
         }
 //----------------vxc
-        public bool getallReport()
+        public List<AdminReportDto> getallReport()
         {
            var result = _IDBContext.Connection.Query<Report>("Report_F_package.getallReport", commandType: CommandType.StoredProcedure).OrderBy(m=>m.post_id).ToList();
             var postIdList = new List<int>();
@@ -43,7 +43,7 @@ namespace Infra.Repository
                 }
             }
 
-            return true;
+            return result.ToList();
         }
 
         public Report getbyidReport(int id)
