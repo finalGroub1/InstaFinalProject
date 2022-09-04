@@ -23,6 +23,7 @@ namespace Core.Repository
         public bool blockPost(int id);
         public List<postViewModel> getallMyPosts(int id);
         public List<postViewModel> getallFollowingPosts(int id);
+        public bool AdmindeletePost(int id);
 
     }
 }

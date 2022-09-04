@@ -10,5 +10,6 @@ namespace Core.DTO
         public List<Report> report { get; set; }
         public Post post { get; set; }
         public int ReportCount { get; set; }
+        public List<MediaPost> mediaPostList { get; set; }
     }
 }

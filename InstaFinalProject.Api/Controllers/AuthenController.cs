@@ -14,10 +14,12 @@ namespace InstaFinalProject.Api.Controllers
     public class AuthenController : ControllerBase
     {
         private readonly IAuthenticationService authenticationservice;
+        private readonly IUserService _userService;
 
-        public AuthenController(IAuthenticationService authenticationservice)
+        public AuthenController(IAuthenticationService authenticationservice, IUserService userService)
         {
             this.authenticationservice = authenticationservice;
+            this._userService = userService;
         }
         [HttpPost]
         public IActionResult authen([FromBody] Login_dto login)
@@ -30,6 +32,7 @@ namespace InstaFinalProject.Api.Controllers
             }
             else
             {
+                _userService.createChickIn(login.email);
                 return Ok(RESULT); //200
             }
         }

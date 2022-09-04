@@ -19,9 +19,11 @@ namespace Core.Service
 
         public User getbyidUser(int id);
         public bool blockUser(int id);
+        public bool SpendTime(int id);
 
         public List<User> getbynameUser(User user);
         public Int32 UserCount();
+        public bool createChickIn(string email);
 
     }
 }

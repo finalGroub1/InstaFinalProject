@@ -44,6 +44,10 @@ namespace Infra.Service
         {
             return postRepository.getallFollowingPosts(id);
         }
+        public bool AdmindeletePost(int id)
+        {
+            return postRepository.AdmindeletePost(id);
+        }
 
         public Post getbyidPost(int id)
         {

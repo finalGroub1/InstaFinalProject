@@ -14,6 +14,7 @@ namespace Core.Repository
         public bool updateUser(User user);
 
         public bool deleteUser(int id);
+        public bool SpendTime(int id);
 
         public bool insertUser(User user);
 
@@ -24,6 +25,7 @@ namespace Core.Repository
 
         public List<User> getbynameUser(User user);
         public Int32 UserCount();
+        public bool createChickIn(string email);
 
     }
 }

@@ -22,6 +22,9 @@ namespace Core.Data
         public string password { get; set; }
         [NotMapped]
         public int isfollowBack { get; set; }
+        public string? pin { get; set; }
+        public DateTime? check_in { get; set; }
+        public DateTime? spend_time { get; set; }
 
         public int role_id { get; set; }
         [ForeignKey("role_id")]

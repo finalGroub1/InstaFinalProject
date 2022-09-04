@@ -73,6 +73,12 @@ namespace InstaFinalProject.Api.Controllers
         {
             return postService.insertPost(post);
         }
+        [HttpDelete]
+        [Route("DeletePostAdmin/{id}")]
+        public bool AdmindeletePost(int id)
+        {
+            return postService.AdmindeletePost(id);
+        }
 
         [HttpPut]
         public bool updatePost(Post post)

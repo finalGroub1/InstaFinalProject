@@ -3,6 +3,8 @@ using Core.Data;
 using Core.DTO;
 using Core.Repository;
 using Dapper;
+using MailKit.Net.Smtp;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -50,6 +52,41 @@ namespace Infra.Repository
 
         public bool deletePost(int id)
         {
+
+            var p = new DynamicParameters();
+            p.Add("@Pid", id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            var result = _IDBContext.Connection.ExecuteAsync("Post_package.deletePost", p, commandType: CommandType.StoredProcedure);
+            return true;
+        }
+
+        public bool AdmindeletePost(int id)
+        {
+
+            var post = getbyidPost(id);
+            var user = getbyidUser(post.user_id);
+
+
+
+
+            MimeMessage message = new MimeMessage();
+            BodyBuilder B = new BodyBuilder();
+            MailboxAddress From = new MailboxAddress("User", "Saja_sjsj@hotmail.com");
+            MailboxAddress to = new MailboxAddress("user", "finalGroub1@gmail.com");
+
+            B.HtmlBody = "<pre> There is a report in your post Because you are violate our privacy policy in this post </pre><br><p>" + post.desc_+"</p>";
+            message.Body = B.ToMessageBody();
+            message.From.Add(From);
+            message.To.Add(to);
+            message.Subject = "Dear " + user.name + "";
+            using (var item = new SmtpClient())
+            {
+                item.Connect("smtp.office365.com", 587, false);
+                item.Authenticate("Saja_sjsj@hotmail.com", "Saja0799");
+                item.Send(message);
+                item.Disconnect(true);                
+            }
+
+
             var p = new DynamicParameters();
             p.Add("@Pid", id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             var result = _IDBContext.Connection.ExecuteAsync("Post_package.deletePost", p, commandType: CommandType.StoredProcedure);
@@ -65,7 +102,7 @@ namespace Infra.Repository
         public List<postViewModel> getallMyPosts(int id)
         {
             var postViewModelList = new List<postViewModel>();
-            IEnumerable<Post> post = _IDBContext.Connection.Query<Post>("Post_package.getallPost", commandType: CommandType.StoredProcedure).Where(x=>x.user_id == id).OrderByDescending(x=> x.createdate).ToList();
+            IEnumerable<Post> post = _IDBContext.Connection.Query<Post>("Post_package.getallPost", commandType: CommandType.StoredProcedure).Where(x => x.user_id == id).OrderByDescending(x => x.createdate).ToList();
             IEnumerable<Comment> comment = _IDBContext.Connection.Query<Comment>("Comment_F_package.getallComment", commandType: CommandType.StoredProcedure);
             IEnumerable<MediaPost> mediaPost = _IDBContext.Connection.Query<MediaPost>("MediaPost_package.getallMediaPost", commandType: CommandType.StoredProcedure);
             IEnumerable<Interaction> interAction = _IDBContext.Connection.Query<Interaction>("InterAction_package.getallInterAction", commandType: CommandType.StoredProcedure);
@@ -77,7 +114,7 @@ namespace Infra.Repository
             //---------------------------------------------
             foreach (var item in post)
             {
-                var comm = comment.Where(x => x.post_id == item.id).OrderByDescending(x=> x.date_).ToList();
+                var comm = comment.Where(x => x.post_id == item.id).OrderByDescending(x => x.date_).ToList();
                 var med = mediaPost.Where(x => x.post_id == item.id).ToList();
                 var inter = interAction.Where(x => x.post_id == item.id).ToList();
 
@@ -119,7 +156,7 @@ namespace Infra.Repository
                 postViewModelList.Add(Model);
 
             }
-            
+
 
             return postViewModelList;
         }
@@ -188,7 +225,7 @@ namespace Infra.Repository
 
                 }
             }
-            
+
 
 
             return postViewModelList.OrderByDescending(x => x.post.createdate).ToList();
@@ -216,30 +253,34 @@ namespace Infra.Repository
 
         public bool insertPost(PostMediaDTO post)
         {
+
             var p = new DynamicParameters();
             p.Add("@Pcreatedate", DateTime.Now, dbType: DbType.DateTime, direction: ParameterDirection.Input);
             p.Add("@Pstate", post.state, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Pdesc_", post.desc_, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@Ppostion", post.postion, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@Ppostion", null, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Puser_id", post.user_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
 
             var result = _IDBContext.Connection.ExecuteAsync("Post_package.insertPost", p, commandType: CommandType.StoredProcedure);
             //---------------------------------------------------------------------------
             var allpost = getallPost();
-            var postid= allpost.Where(i => i.user_id == post.user_id).OrderBy(m => m.id).LastOrDefault();
+            var postid = allpost.Where(i => i.user_id == post.user_id).OrderBy(m => m.id).LastOrDefault();
 
 
-        //----------------------------------------------------
-        for(int i=0;i<=post.mediapath.Count-1;i++)
+            //----------------------------------------------------
+            if (post.mediapath != null)
             {
-                var p2 = new DynamicParameters();
-                p2.Add("@mPath", post.mediapath[i], dbType: DbType.String, direction: ParameterDirection.Input);
-                p2.Add("@Pid", postid.id, dbType: DbType.Int32, direction: ParameterDirection.Input);
-                p2.Add("@Sid", null, dbType: DbType.Int32, direction: ParameterDirection.Input);
+                for (int i = 0; i <= post.mediapath.Count - 1; i++)
+                {
+                    var p2 = new DynamicParameters();
+                    p2.Add("@mPath", post.mediapath[i], dbType: DbType.String, direction: ParameterDirection.Input);
+                    p2.Add("@Pid", postid.id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+                    p2.Add("@Sid", null, dbType: DbType.Int32, direction: ParameterDirection.Input);
 
 
-                 _IDBContext.Connection.ExecuteAsync("MediaPost_package.insertMediaPost", p2, commandType: CommandType.StoredProcedure);
-                
+                    _IDBContext.Connection.ExecuteAsync("MediaPost_package.insertMediaPost", p2, commandType: CommandType.StoredProcedure);
+
+                }
             }
 
 

@@ -3,10 +3,12 @@ using Core.Data;
 using Core.DTO;
 using Core.Repository;
 using Dapper;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 
 namespace Infra.Repository
@@ -22,10 +24,16 @@ namespace Infra.Repository
 
         public bool deleteReport(int id)
         {
-            var p = new DynamicParameters();
-            p.Add("@idofReport", id, dbType: DbType.Int32, direction: ParameterDirection.Input);
-            var result = _IDBContext.Connection.ExecuteAsync("Report_F_package.deleteReport", p, commandType: CommandType.StoredProcedure);
+            var report = _IDBContext.Connection.Query<Report>("Report_F_package.getallReport", commandType: CommandType.StoredProcedure).Where(x=> x.post_id == id).ToList();
+            foreach (var item in report)
+            {
+                var p = new DynamicParameters();
+                p.Add("@idofReport", item.id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+                var result = _IDBContext.Connection.ExecuteAsync("Report_F_package.deleteReport", p, commandType: CommandType.StoredProcedure);
+                
+            }
             return true;
+            
         }
 
      
@@ -47,6 +55,12 @@ namespace Infra.Repository
         public List<AdminReportDto> getallReport()
         { 
             var report = _IDBContext.Connection.Query<Report>("Report_F_package.getallReport", commandType: CommandType.StoredProcedure).OrderBy(m => m.post_id).ToList();
+            var dtoList = new List<AdminReportDto>();
+
+            if (report.Count == 0)
+            {
+                return dtoList;
+            }
             //------------------------------------
             var postIdList = new List<int>();
    
@@ -54,7 +68,7 @@ namespace Infra.Repository
             //------------------------------------
             postIdList.Add(report[0].post_id);
             //--------------------------------------
-            var dtoList = new List<AdminReportDto>();
+            
             //--------------------------------------------------------
             for (int i = 0; i < report.Count(); i++)
             {
@@ -73,17 +87,37 @@ namespace Infra.Repository
             //-------------------------------------------
             for (int i = 0; i < postIdList.Count(); i++)
             {
+                var med = getallMediaPost(postIdList[i]).ToList();
+                foreach (var item3 in med)
+                {
+                    if (item3.mediapath.Contains("mp4"))
+                    {
+                        item3.isVideo = 1;
+                    }
+                    else
+                    {
+                        item3.isVideo = 0;
+                    }
+                }
+                var post = getbyidPost(postIdList[i]);
+                post.User = getbyidUser(post.user_id);
 
                 AdminReportDto model = new AdminReportDto()
                 {
-                    post = getbyidPost(postIdList[i]),
+                    post = post,
                     report = report.Where(x => x.post_id == postIdList[i]).ToList(),
-                    ReportCount= report.Where(x => x.post_id == postIdList[i]).Count()
+                    ReportCount = report.Where(x => x.post_id == postIdList[i]).Count(),
+                    mediaPostList = med
                 };
                 dtoList.Add(model);
             }
 
             return dtoList;
+        }
+        public List<MediaPost> getallMediaPost(int id)
+        {            
+            IEnumerable<MediaPost> result = _IDBContext.Connection.Query<MediaPost>("MediaPost_package.getallMediaPost", commandType: CommandType.StoredProcedure).Where(x=> x.post_id == id);
+            return result.ToList();
         }
 
         public Report getbyidReport(int id)

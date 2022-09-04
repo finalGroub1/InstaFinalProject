@@ -25,6 +25,14 @@ namespace Infra.Service
         {
             return userRepository.deleteUser(id);
         }
+        public bool createChickIn(string email)
+        {
+            return userRepository.createChickIn(email);
+        }
+        public bool SpendTime(int id)
+        {
+            return userRepository.SpendTime(id);
+        }
 
         public List<User> getactiveUser()
         {

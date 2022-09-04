@@ -12,12 +12,15 @@ namespace Core.Data
         public int id { get; set; }
         public DateTime? createdate { get; set; }
         public int? state { get; set; }
-        public string desc_ { get; set; }
+        public string desc_ { get; set; }        
         public int? postion { get; set; }
-        public int? user_id { get; set; }
+        public int user_id { get; set; }
 
         [ForeignKey("user_id")]
         public virtual User User { get; set; }
+
+        [ForeignKey("postion")]
+        public virtual User User2 { get; set; }
 
         public ICollection<ServiceUser> Serviceusers { get; set; }
         public ICollection<Comment> Comments { get; set; }
