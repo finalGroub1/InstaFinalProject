@@ -26,12 +26,26 @@ namespace Infra.Repository
             var result = _IDBContext.Connection.ExecuteAsync("User_F_package.deleteUser", p, commandType: CommandType.StoredProcedure);
             return true;
         }
-        public bool createChickIn(string email)
-        {
+        public bool createChickIn(string email)///////////////////////
+        {  
             var emailuser = getallUser().ToList();
             var emailuser2 = emailuser.Where(x => x.email == email).FirstOrDefault();
-            emailuser2.check_in = DateTime.Now;
+          //  string timeInString = DateTime.Now.ToString("HH.mm");
+          //  double timeDouble = Convert.ToDouble(timeInString);
+           // emailuser2.check_in= timeDouble
             updateUserLogin(emailuser2);
+            return true;
+        }
+        public bool SpendTime(int id)
+        {
+
+            var user = getbyidUser(id);
+
+          //  string timeNow = DateTime.Now.ToString("HH.mm");
+         //   double timeDouble = Convert.ToDouble(timeNow);
+           // user.spend_time = timeDouble - user.check_in;
+            //we will add a prop in database in datatype date and will take the value from here
+            updateUserLogin(user);
             return true;
         }
 
@@ -40,27 +54,7 @@ namespace Infra.Repository
             IEnumerable<User> result = _IDBContext.Connection.Query<User>("User_F_package.getallUser", commandType: CommandType.StoredProcedure);
             return result.ToList();
         }
-        public bool SpendTime(int id)
-        {
-            DateTime d1 = DateTime.Now;
-            string s1 = d1.ToString();
-            d1 = Convert.ToDateTime(s1);
-
-           string test= DateTime.Now.ToString("HH.mm");
-           double oo= Convert.ToDouble(test);
-            DateTime d2 = Convert.ToDateTime(test);
-            var user = getbyidUser(id);
-
-           
-            //TimeSpan a = new TimeSpan(12, 00, 00);
-            var time = Convert.ToDateTime(user.spend_time);
-          
-            var check = Convert.ToDateTime(user.check_in);
-           
-            updateUserLogin(user);
-            return true;
-        }
-
+       
         public User getbyidUser(int id)
         {
             var p = new DynamicParameters();
@@ -98,9 +92,9 @@ namespace Infra.Repository
             p.Add("@pass", user.password, dbType: DbType.String, direction: ParameterDirection.Input);
             p.Add("@Rid", user.role_id, dbType: DbType.String, direction: ParameterDirection.Input);
             p.Add("@Upin", user.pin, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@Ucheck_in", user.check_in, dbType: DbType.DateTime, direction: ParameterDirection.Input);
-            p.Add("@Uspend_time", user.spend_time, dbType: DbType.DateTime, direction: ParameterDirection.Input);
-
+            // p.Add("@Ucheck_in", user.check_in, dbType: DbType.Double, direction: ParameterDirection.Input);//edit
+            //  p.Add("@Uspend_time", user.spend_time, dbType: DbType.Double, direction: ParameterDirection.Input);//edit
+            //add new prop datatype date
             var result = _IDBContext.Connection.ExecuteAsync("User_F_package.insertUser", p, commandType: CommandType.StoredProcedure);
             return true;
         }
@@ -126,9 +120,9 @@ namespace Infra.Repository
             p.Add("@pass", user.password, dbType: DbType.String, direction: ParameterDirection.Input);
             p.Add("@Rid", userEdit.role_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Upin", userEdit.pin, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@Ucheck_in", userEdit.check_in, dbType: DbType.DateTime, direction: ParameterDirection.Input);
-            p.Add("@Uspend_time", userEdit.spend_time, dbType: DbType.DateTime, direction: ParameterDirection.Input);
-
+          //  p.Add("@Ucheck_in", userEdit.check_in, dbType: DbType.Double, direction: ParameterDirection.Input);//edit
+           // p.Add("@Uspend_time", userEdit.spend_time, dbType: DbType.Double, direction: ParameterDirection.Input);//edit
+           //add new prop datatype date
             var result = _IDBContext.Connection.ExecuteAsync("User_F_package.updateUser", p, commandType: CommandType.StoredProcedure);
             return true;
         }
@@ -149,9 +143,9 @@ namespace Infra.Repository
             p.Add("@pass", user.password, dbType: DbType.String, direction: ParameterDirection.Input);
             p.Add("@Rid", user.role_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Upin", user.pin, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@Ucheck_in", user.check_in, dbType: DbType.DateTime, direction: ParameterDirection.Input);
-            p.Add("@Uspend_time", user.spend_time, dbType: DbType.DateTime, direction: ParameterDirection.Input);
-
+            // p.Add("@Ucheck_in", user.check_in, dbType: DbType.Double, direction: ParameterDirection.Input); //edit
+            //  p.Add("@Uspend_time", user.spend_time, dbType: DbType.Double, direction: ParameterDirection.Input);//edit
+            //add new prop datatype date
             var result = _IDBContext.Connection.ExecuteAsync("User_F_package.updateUser", p, commandType: CommandType.StoredProcedure);
             return true;
         }
@@ -182,7 +176,11 @@ namespace Infra.Repository
             p.Add("@Uisblocked", user.isblock, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Uisactive", user.isactive, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@pass", user.password, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@Rid",user.role_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@Rid", user.role_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@Upin", user.pin, dbType: DbType.String, direction: ParameterDirection.Input);
+            // p.Add("@Ucheck_in", user.check_in, dbType: DbType.Double, direction: ParameterDirection.Input); //edit
+            //  p.Add("@Uspend_time", user.spend_time, dbType: DbType.Double, direction: ParameterDirection.Input);//edit
+            //add new prop datatype date
 
             var result = _IDBContext.Connection.ExecuteAsync("User_F_package.updateUser", p, commandType: CommandType.StoredProcedure);
             return true;
