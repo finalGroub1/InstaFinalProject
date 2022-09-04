@@ -21,6 +21,7 @@ namespace Core.Repository
         public User getbyidUser(int id);
 
         public bool blockUser(int id);
+        public List<User> getTop10();
 
 
         public List<User> getbynameUser(User user);

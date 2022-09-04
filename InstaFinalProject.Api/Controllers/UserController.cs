@@ -82,6 +82,12 @@ namespace InstaFinalProject.Api.Controllers
             return UserService.getactiveUser();
         }
         [HttpGet]
+        [Route("getTop10")]
+        public List<User> getTop10()
+        {
+            return UserService.getTop10();
+        }
+        [HttpGet]
         [Route("SpendTime/{id}")]
         public bool SpendTime(int id)
         {

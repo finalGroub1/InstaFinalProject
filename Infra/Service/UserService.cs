@@ -33,6 +33,10 @@ namespace Infra.Service
         {
             return userRepository.SpendTime(id);
         }
+        public List<User> getTop10()
+        {
+            return userRepository.getTop10();
+        }
 
         public List<User> getactiveUser()
         {

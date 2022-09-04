@@ -23,8 +23,9 @@ namespace Core.Data
         [NotMapped]
         public int isfollowBack { get; set; }
         public string? pin { get; set; }
-        public DateTime? check_in { get; set; }
-        public DateTime? spend_time { get; set; }
+        public double check_in { get; set; }
+        public double spend_time { get; set; }
+        public DateTime Date_of_spend { get; set; }
 
         public int role_id { get; set; }
         [ForeignKey("role_id")]
