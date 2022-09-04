@@ -27,10 +27,20 @@ namespace Infra.Repository
             return true;
         }
 
-        public List<Message> getallMessage()
+        public List<Message> getallMessage(int sender, int reciver)
         {
-            IEnumerable<Message> result = _IDBContext.Connection.Query<Message>("Message_package.getallMessage", commandType: CommandType.StoredProcedure);
+            
+            IEnumerable<Message> result = _IDBContext.Connection.Query<Message>("Message_package.getallMessage", commandType: CommandType.StoredProcedure)
+                .Where(x=> x.user_id_send == sender && x.user_id_res == reciver || x.user_id_send == reciver && x.user_id_res == sender);
+            
             return result.ToList();
+        }
+        public User getbyidUser(int id)
+        {
+            var p = new DynamicParameters();
+            p.Add("@Uid", id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            var result = _IDBContext.Connection.Query<User>("User_F_package.getbyidUser", p, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            return result;
         }
 
         public Message getbyidMessage(int id)

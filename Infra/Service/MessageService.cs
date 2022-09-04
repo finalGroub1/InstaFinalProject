@@ -21,9 +21,9 @@ namespace Infra.Service
             return imessageRepository.deleteMessage(id);
         }
 
-        public List<Message> getallMessage()
+        public List<Message> getallMessage(int sender, int reciver)
         {
-            return imessageRepository.getallMessage();
+            return imessageRepository.getallMessage(sender, reciver);
         }
 
         public Message getbyidMessage(int id)

@@ -7,7 +7,7 @@ namespace Core.Service
 {
    public interface ImessageService
     {
-        public List<Message> getallMessage();
+        public List<Message> getallMessage(int sender, int reciver);
 
         public bool updateMessage(Message message);
 

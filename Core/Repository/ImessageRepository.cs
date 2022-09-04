@@ -7,7 +7,7 @@ namespace Core.Repository
 {
     public interface ImessageRepository
     {
-        public List<Message> getallMessage();
+        public List<Message> getallMessage(int sender, int reciver);
 
         public bool updateMessage(Message message);
 

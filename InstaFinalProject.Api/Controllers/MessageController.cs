@@ -28,9 +28,10 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpGet]
-        public List<Message> getallMessage()
+        [Route("getallMessage/{sender}/{reciver}")]
+        public List<Message> getallMessage(int sender, int reciver)
         {
-            return imessageService.getallMessage();
+            return imessageService.getallMessage(sender, reciver);
         }
 
         [HttpGet]
