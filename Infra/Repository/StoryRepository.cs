@@ -39,7 +39,7 @@ namespace Infra.Repository
             foreach (var item in UserList)
             {
                 var storyO = story.Where(x => x.user_id == item.id).ToList();
-                if (storyO != null)
+                if (storyO.Count != 0)
                 {
                     storyViewModel model = new storyViewModel()
                     {
@@ -56,7 +56,7 @@ namespace Infra.Repository
             //--------------------//
 
             var Mystory = story.Where(x => x.user_id == id).ToList();
-            if (Mystory != null)
+            if (Mystory.Count != 0)
             {
                 storyViewModel model = new storyViewModel()
                 {
