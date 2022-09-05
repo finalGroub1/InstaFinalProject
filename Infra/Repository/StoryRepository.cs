@@ -50,11 +50,25 @@ namespace Infra.Repository
 
                     storyViewModel.Add(model);
 
-                }
-           
+                }           
                 
             }
-            
+            //--------------------//
+
+            var Mystory = story.Where(x => x.user_id == id).ToList();
+            if (Mystory != null)
+            {
+                storyViewModel model = new storyViewModel()
+                {
+                    storyList = Mystory,
+                    user = getbyidUser(id)
+
+                };
+
+                storyViewModel.Add(model);
+
+            }
+
             return storyViewModel.ToList();
         }
         public User getbyidUser(int id)
