@@ -14,6 +14,7 @@ namespace Core.Data
         public int user_id { get; set; }
         public string? descrption { get; set; }
         public int? state { get; set; }
+        public string imagePath { get; set; }
 
         [ForeignKey("user_id")]
         public virtual User User { get; set; }

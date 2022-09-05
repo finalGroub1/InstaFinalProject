@@ -7,7 +7,7 @@ namespace Core.DTO
 {
     public class storyViewModel
     {
-        public MediaPost mediaPost { get; set; }
-        public Story story { get; set; }
+        public User user { get; set; }
+        public List<Story> storyList { get; set; }
     }
 }

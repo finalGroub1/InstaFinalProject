@@ -33,28 +33,25 @@ namespace Infra.Repository
         public List<storyViewModel> getallStory(int id)
         {
             IEnumerable<Story> story = _IDBContext.Connection.Query<Story>("Story_package.getallStory", commandType: CommandType.StoredProcedure);
-            IEnumerable<MediaPost> mediastory = _IDBContext.Connection.Query<MediaPost>("MediaPost_package.getallMediaPost", commandType: CommandType.StoredProcedure);
+            
             var storyViewModel = new List<storyViewModel>();
             var UserList = _followerrepository.getalluserThatFollow(id);
             foreach (var item in UserList)
             {
                 var storyO = story.Where(x => x.user_id == item.id).ToList();
-                foreach (var item2 in storyO)
+                if (storyO != null)
                 {
-                    item2.User = getbyidUser(item2.user_id);
-
-                    var med = mediastory.Where(x => x.story_id == item2.id).FirstOrDefault();
                     storyViewModel model = new storyViewModel()
                     {
-                        story = item2,
-                        mediaPost = med,
-                        
+                        storyList = storyO,
+                        user = item
+
                     };
 
                     storyViewModel.Add(model);
 
-
                 }
+           
                 
             }
             
@@ -90,6 +87,7 @@ namespace Infra.Repository
             p.Add("@Uid", story.user_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Sdesc", story.descrption, dbType: DbType.String, direction: ParameterDirection.Input);
             p.Add("@Sstate", story.state, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@SimagePath", story.imagePath, dbType: DbType.Int32, direction: ParameterDirection.Input);
 
             var result = _IDBContext.Connection.ExecuteAsync("Story_package.insertStory", p, commandType: CommandType.StoredProcedure);
             return true;
@@ -103,6 +101,7 @@ namespace Infra.Repository
             p.Add("@Uid", story.user_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Sdesc", story.descrption, dbType: DbType.String, direction: ParameterDirection.Input);
             p.Add("@Sstate", story.state, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@SimagePath", story.imagePath, dbType: DbType.Int32, direction: ParameterDirection.Input);
 
             var result = _IDBContext.Connection.ExecuteAsync("Story_package.updateStory", p, commandType: CommandType.StoredProcedure);
             return true;
@@ -128,6 +127,7 @@ namespace Infra.Repository
             p.Add("@Uid", story.user_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Sdesc", story.descrption, dbType: DbType.String, direction: ParameterDirection.Input);
             p.Add("@Sstate", story.state, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@SimagePath", story.imagePath, dbType: DbType.Int32, direction: ParameterDirection.Input);
 
             var result = _IDBContext.Connection.ExecuteAsync("Story_package.updateStory", p, commandType: CommandType.StoredProcedure);
             return true;
