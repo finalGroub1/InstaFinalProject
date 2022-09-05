@@ -8,7 +8,7 @@ namespace Core.Service
 {
    public interface IStoryService
     {
-        public List<Story> getallStory();
+        public List<storyViewModel> getallStory(int id);
 
         public List<StoryUser> getStoryUser();
 

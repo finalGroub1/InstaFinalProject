@@ -13,10 +13,12 @@ namespace Infra.Repository
     public class MessageRepository : ImessageRepository
     {
         private readonly IDBContext _IDBContext;
+        
 
         public MessageRepository(IDBContext iDBContext)
         {
             _IDBContext = iDBContext;
+            
         }
 
         public bool deleteMessage(int id)

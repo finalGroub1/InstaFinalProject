@@ -8,7 +8,7 @@ namespace Core.Repository
 {
     public interface IStoryRepository
     {
-        public List<Story> getallStory();
+        public List<storyViewModel> getallStory(int id);
 
         public List<StoryUser> getStoryUser();
 

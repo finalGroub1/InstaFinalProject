@@ -29,9 +29,10 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpGet]
-        public List<Story> getallStory()
+        [Route("allStory/{id}")]
+        public List<storyViewModel> getallStory(int id)
         {
-            return storyService.getallStory();
+            return storyService.getallStory(id);
         }
 
         [HttpGet]

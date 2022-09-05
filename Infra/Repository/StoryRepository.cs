@@ -14,10 +14,12 @@ namespace Infra.Repository
    public class StoryRepository: IStoryRepository
     {
         private readonly IDBContext _IDBContext;
+        private readonly IFollowersRepository _followerrepository;
 
-        public StoryRepository(IDBContext iDBContext)
+        public StoryRepository(IDBContext iDBContext, IFollowersRepository followerrepository)
         {
             _IDBContext = iDBContext;
+            _followerrepository = followerrepository;
         }
 
         public bool deleteStory(int id)
@@ -28,10 +30,42 @@ namespace Infra.Repository
             return true;
         }
 
-        public List<Story> getallStory()
+        public List<storyViewModel> getallStory(int id)
         {
-            IEnumerable<Story> result = _IDBContext.Connection.Query<Story>("Story_package.getallStory", commandType: CommandType.StoredProcedure);
-            return result.ToList();
+            IEnumerable<Story> story = _IDBContext.Connection.Query<Story>("Story_package.getallStory", commandType: CommandType.StoredProcedure);
+            IEnumerable<MediaPost> mediastory = _IDBContext.Connection.Query<MediaPost>("MediaPost_package.getallMediaPost", commandType: CommandType.StoredProcedure);
+            var storyViewModel = new List<storyViewModel>();
+            var UserList = _followerrepository.getalluserThatFollow(id);
+            foreach (var item in UserList)
+            {
+                var storyO = story.Where(x => x.user_id == item.id).ToList();
+                foreach (var item2 in storyO)
+                {
+                    item2.User = getbyidUser(item2.user_id);
+
+                    var med = mediastory.Where(x => x.story_id == item2.id).FirstOrDefault();
+                    storyViewModel model = new storyViewModel()
+                    {
+                        story = item2,
+                        mediaPost = med,
+                        
+                    };
+
+                    storyViewModel.Add(model);
+
+
+                }
+                
+            }
+            
+            return storyViewModel.ToList();
+        }
+        public User getbyidUser(int id)
+        {
+            var p = new DynamicParameters();
+            p.Add("@Uid", id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            var result = _IDBContext.Connection.Query<User>("User_F_package.getbyidUser", p, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            return result;
         }
 
         public List<StoryUser> getStoryUser()

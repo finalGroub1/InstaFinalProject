@@ -12,8 +12,8 @@ namespace Core.Data
         public int id { get; set; }
         public DateTime createdate { get; set; }
         public int user_id { get; set; }
-        public string descrption { get; set; }
-        public int state { get; set; }
+        public string? descrption { get; set; }
+        public int? state { get; set; }
 
         [ForeignKey("user_id")]
         public virtual User User { get; set; }

@@ -22,9 +22,9 @@ namespace Infra.Service
             return storyRepository.deleteStory(id);
         }
 
-        public List<Story> getallStory()
+        public List<storyViewModel> getallStory(int id)
         {
-            return storyRepository.getallStory();
+            return storyRepository.getallStory(id);
         }
 
         public List<StoryUser> getStoryUser()
