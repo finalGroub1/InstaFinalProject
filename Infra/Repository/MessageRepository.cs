@@ -31,7 +31,7 @@ namespace Infra.Repository
         {
             
             IEnumerable<Message> result = _IDBContext.Connection.Query<Message>("Message_package.getallMessage", commandType: CommandType.StoredProcedure)
-                .Where(x=> x.user_id_send == sender && x.user_id_res == reciver || x.user_id_send == reciver && x.user_id_res == sender);
+                .Where(x=> x.user_id_send == sender && x.user_id_res == reciver || x.user_id_send == reciver && x.user_id_res == sender).OrderBy(x=> x.id);
             
             return result.ToList();
         }
@@ -55,7 +55,7 @@ namespace Infra.Repository
         {
             var p = new DynamicParameters();
             p.Add("@Mtextme", message.textme, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@Mtimeme", message.timeme, dbType: DbType.DateTime, direction: ParameterDirection.Input);
+            p.Add("@Mtimeme", DateTime.Now, dbType: DbType.DateTime, direction: ParameterDirection.Input);
             p.Add("@Tuser_id_send", message.user_id_send, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Tuser_id_resp", message.user_id_res, dbType: DbType.Int32, direction: ParameterDirection.Input);
 
