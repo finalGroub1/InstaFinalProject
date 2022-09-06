@@ -170,8 +170,7 @@ namespace Infra.Repository
             IEnumerable<MediaPost> mediaPost = _IDBContext.Connection.Query<MediaPost>("MediaPost_package.getallMediaPost", commandType: CommandType.StoredProcedure);
             IEnumerable<Interaction> interAction = _IDBContext.Connection.Query<Interaction>("InterAction_package.getallInterAction", commandType: CommandType.StoredProcedure);
             IEnumerable<ServiceUser> ServiceUser = _IDBContext.Connection.Query<ServiceUser>("ServiceUser_package.getallServiceUser", commandType: CommandType.StoredProcedure);
-            var post1 = _IDBContext.Connection.Query<Post>("Post_package.getallPost", commandType: CommandType.StoredProcedure).ToList();
-
+            var allpost = _IDBContext.Connection.Query<Post>("Post_package.getallPost", commandType: CommandType.StoredProcedure).ToList();
 
             //--------------------------------------------------//
             var p = new DynamicParameters();
@@ -181,7 +180,7 @@ namespace Infra.Repository
             //--------------------البوستات الخاصة بمتابعينك
             foreach (var itemFollow in ThatFollow)
             {
-                var post = _IDBContext.Connection.Query<Post>("Post_package.getallPost", commandType: CommandType.StoredProcedure).Where(x => x.user_id == itemFollow.id && x.postion != id).OrderByDescending(x => x.createdate).Take(3).ToList();
+                var post = allpost.Where(x => x.user_id == itemFollow.id && x.postion != id).OrderByDescending(x => x.createdate).Take(3).ToList();
 
 
                 foreach (var item in post)
@@ -236,8 +235,7 @@ namespace Infra.Repository
             foreach (var servic in ServiceUser)
             {
                 var postPro = postViewModelList.Where(x => x.post.id == servic.post_id).FirstOrDefault();
-                
-                
+                 
                 if (postPro == null && servic.date_to.Date>DateTime.Now.Date)
                 {    
                     var comm = comment.Where(x => x.post_id == servic.post_id).OrderByDescending(x => x.date_).ToList();
