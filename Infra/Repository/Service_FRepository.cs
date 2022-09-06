@@ -45,9 +45,7 @@ namespace Infra.Repository
         public bool insertService(Service_F service)
         {
             var p = new DynamicParameters();
-            p.Add("@des", service.desc_, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@dIn", service.datein, dbType: DbType.DateTime, direction: ParameterDirection.Input);
-            p.Add("@dTo", service.date_to, dbType: DbType.DateTime, direction: ParameterDirection.Input);
+            p.Add("@Sduration", service.duration, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@P", service.price, dbType: DbType.Double, direction: ParameterDirection.Input);
 
             var result = _IDBContext.Connection.ExecuteAsync("Service_F_package.insertService", p, commandType: CommandType.StoredProcedure);
@@ -58,10 +56,9 @@ namespace Infra.Repository
         {
             var p = new DynamicParameters();
             p.Add("@idofService", service.id, dbType: DbType.Int32, direction: ParameterDirection.Input);
-            p.Add("@des", service.desc_, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@dIn", service.datein, dbType: DbType.DateTime, direction: ParameterDirection.Input);
-            p.Add("@dTo", service.date_to, dbType: DbType.DateTime, direction: ParameterDirection.Input);
+            p.Add("@Sduration", service.duration, dbType: DbType.Int32, direction: ParameterDirection.Input);    
             p.Add("@P", service.price, dbType: DbType.Double, direction: ParameterDirection.Input);
+
 
             var result = _IDBContext.Connection.ExecuteAsync("Service_F_package.updateService", p, commandType: CommandType.StoredProcedure);
             return true;

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -61,11 +62,44 @@ namespace InstaFinalProject.Api.Controllers
         {
             return storyService.insertStory(story);
         }
+        [HttpGet]
+        [Route("getallStoryAdmin")]
+        public List<Story> getallStoryAdmin()
+        {
+            return storyService.getallStoryAdmin();
+        }
 
         [HttpPut]
         public bool updateStory(Story story)
         {
             return storyService.updateStory(story);
         }
+        [Route("uploadImage")]
+        [HttpPost]
+        public Story UploadImage()
+        {
+            try
+            {
+                var file = Request.Form.Files[0];
+            
+                var fileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                var fullPath = Path.Combine(@"C:\Users\Bader Qabooq\Desktop\edu\EduSite\src\assets\images", fileName);
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+                Story item = new Story();
+                item.imagePath = fileName;
+                return item;
+
+            }
+            catch (Exception e)
+            {
+
+                return null;
+            }
+
+        }
+
     }
 }

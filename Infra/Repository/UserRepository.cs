@@ -13,10 +13,11 @@ namespace Infra.Repository
     public class UserRepository : IUserRepository
     {
         private readonly IDBContext _IDBContext;
-
-        public UserRepository(IDBContext IDBContext)
+        private readonly IFollowersRepository _FollowersRepository;
+        public UserRepository(IDBContext IDBContext, IFollowersRepository FollowersRepository)
         {
             _IDBContext = IDBContext;
+            _FollowersRepository = FollowersRepository;
         }
 
         public bool deleteUser(int id)
@@ -77,6 +78,9 @@ namespace Infra.Repository
             var p = new DynamicParameters();
             p.Add("@Uid", id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             var result = _IDBContext.Connection.Query<User>("User_F_package.getbyidUser", p, commandType: CommandType.StoredProcedure).FirstOrDefault();
+           
+            result.followerCount = _FollowersRepository.getalluserFollowing(id).Count();//الناس اللي متابعينك
+            result.followingCount = _FollowersRepository.getalluserThatFollow(id).Count();//الناس الي متابعم
             return result;
         }
 

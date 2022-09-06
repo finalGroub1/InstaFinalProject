@@ -26,7 +26,10 @@ namespace Core.Data
         public double check_in { get; set; }
         public double spend_time { get; set; }
         public DateTime Date_of_spend { get; set; }
-
+        [NotMapped]
+        public int followerCount { get; set; }
+        [NotMapped]
+        public int followingCount { get; set; }
         public int role_id { get; set; }
         [ForeignKey("role_id")]
         public virtual Role Role { get; set; }

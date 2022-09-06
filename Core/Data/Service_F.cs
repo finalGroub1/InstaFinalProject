@@ -9,9 +9,7 @@ namespace Core.Data
     {
         [Key]
         public int id { get; set; }
-        public string desc_ { get; set; }
-        public DateTime datein { get; set; }
-        public DateTime date_to { get; set; }
+        public int duration{ get; set; }
         public int price { get; set; }
     }
 }

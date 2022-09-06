@@ -47,6 +47,8 @@ namespace Infra.Repository
             p.Add("@Servid",serviceUser.service_id , dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Uid",serviceUser.user_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Pid",serviceUser.post_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@dIn", serviceUser.datein, dbType: DbType.DateTime, direction: ParameterDirection.Input);
+            p.Add("@dTo", serviceUser.date_to, dbType: DbType.DateTime, direction: ParameterDirection.Input);
 
             var result = _IDBContext.Connection.ExecuteAsync("ServiceUser_package.insertServiceUser", p, commandType: CommandType.StoredProcedure);
             return true;
@@ -59,6 +61,8 @@ namespace Infra.Repository
             p.Add("@Servid", serviceUser.service_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Uid", serviceUser.user_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Pid", serviceUser.post_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@dIn", serviceUser.datein, dbType: DbType.DateTime, direction: ParameterDirection.Input);
+            p.Add("@dTo", serviceUser.date_to, dbType: DbType.DateTime, direction: ParameterDirection.Input);
 
             var result = _IDBContext.Connection.ExecuteAsync("ServiceUser_package.updateServiceUser", p, commandType: CommandType.StoredProcedure);
             return true;

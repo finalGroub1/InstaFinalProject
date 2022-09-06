@@ -51,5 +51,9 @@ namespace Infra.Service
         {
             return storyRepository.blockStory(id);
         }
+        public List<Story> getallStoryAdmin()
+        {
+            return storyRepository.getallStoryAdmin();
+        }
     }
 }

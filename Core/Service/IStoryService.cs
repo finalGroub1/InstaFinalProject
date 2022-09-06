@@ -21,6 +21,7 @@ namespace Core.Service
         public Story getbyidStory(int id);
 
         public bool blockStory(int id);
+        public List<Story> getallStoryAdmin();
 
     }
 }

@@ -165,20 +165,25 @@ namespace Infra.Repository
         {
             var postViewModelList = new List<postViewModel>();
             IEnumerable<User> ThatFollow = _followers.getalluserThatFollow(id);
+            IEnumerable<User> notfollowing = _followers.getalluserToFollow(id);
             IEnumerable<Comment> comment = _IDBContext.Connection.Query<Comment>("Comment_F_package.getallComment", commandType: CommandType.StoredProcedure);
             IEnumerable<MediaPost> mediaPost = _IDBContext.Connection.Query<MediaPost>("MediaPost_package.getallMediaPost", commandType: CommandType.StoredProcedure);
             IEnumerable<Interaction> interAction = _IDBContext.Connection.Query<Interaction>("InterAction_package.getallInterAction", commandType: CommandType.StoredProcedure);
+            IEnumerable<ServiceUser> ServiceUser = _IDBContext.Connection.Query<ServiceUser>("ServiceUser_package.getallServiceUser", commandType: CommandType.StoredProcedure);
+            var post1 = _IDBContext.Connection.Query<Post>("Post_package.getallPost", commandType: CommandType.StoredProcedure).ToList();
+
+
             //--------------------------------------------------//
             var p = new DynamicParameters();
             p.Add("@Uid", id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             var user = _IDBContext.Connection.Query<User>("User_F_package.getbyidUser", p, commandType: CommandType.StoredProcedure).FirstOrDefault();
-
-            //---------------------------------------------//
-
-            //-------------------------------//
+            //----------------------------------------------------------------------------------------------------------------------------------------
+            //--------------------البوستات الخاصة بمتابعينك
             foreach (var itemFollow in ThatFollow)
             {
-                IEnumerable<Post> post = _IDBContext.Connection.Query<Post>("Post_package.getallPost", commandType: CommandType.StoredProcedure).Where(x => x.user_id == itemFollow.id && x.postion != id).OrderByDescending(x => x.createdate).Take(3).ToList();
+                var post = _IDBContext.Connection.Query<Post>("Post_package.getallPost", commandType: CommandType.StoredProcedure).Where(x => x.user_id == itemFollow.id && x.postion != id).OrderByDescending(x => x.createdate).Take(3).ToList();
+
+
                 foreach (var item in post)
                 {
                     var comm = comment.Where(x => x.post_id == item.id).OrderByDescending(x => x.date_).ToList();
@@ -198,9 +203,9 @@ namespace Infra.Repository
                             item3.isVideo = 1;
                         }
                         else
-                        {
                             item3.isVideo = 0;
-                        }
+                    }
+                    {
                     }
                     //----------------------------------------//
                     foreach (var item4 in inter)
@@ -226,9 +231,57 @@ namespace Infra.Repository
                 }
             }
 
+            //-----------------------------------------------------------------------------------------------------------------------------------------
+            //-------------البوستات التي تم ترويجها
+            foreach (var servic in ServiceUser)
+            {
+                var postPro = postViewModelList.Where(x => x.post.id == servic.post_id).FirstOrDefault();
+                if (postPro == null && servic.date_to>DateTime.Now.Date)
+                {    
+                    var comm = comment.Where(x => x.post_id == servic.post_id).OrderByDescending(x => x.date_).ToList();
+                    var med = mediaPost.Where(x => x.post_id == servic.post_id).ToList();
+                    var inter = interAction.Where(x => x.post_id == servic.post_id).ToList();
 
+                    //-----------------------------------------------//
+                    foreach (var item2 in comm)
+                    {
+                        item2.User = getbyidUser(item2.user_id);
+                    }
+                    //------------------------------------------------//
+                    foreach (var item3 in med)
+                    {
+                        if (item3.mediapath != null && item3.mediapath.Contains("mp4"))
+                        {
+                            item3.isVideo = 1;
+                        }
+                        else
+                            item3.isVideo = 0;
+                    }
+                    //----------------------------------------//
+                    foreach (var item4 in inter)
+                    {
+                        item4.User = getbyidUser(item4.user_id);
+                    }
+                    var post = getbyidPost(servic.post_id);
+                    postViewModel Model = new postViewModel()
+                    {
+                        post = post,
+                        comment = comm,
+                        mediaPost = med,
+                        interaction = inter,
+                        user = getbyidUser(servic.user_id),
+                        LikeCount = inter.Count(),
+                        CommentCount = comm.Count(),
+                        ModelPostDate = post.createdate
+                    };
+
+                    postViewModelList.Add(Model);
+                }
+                //---------------------------------
+            }
 
             return postViewModelList.OrderByDescending(x => x.post.createdate).ToList();
+
         }
         public User getbyidUser(int id)
         {

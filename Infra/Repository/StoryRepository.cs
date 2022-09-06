@@ -29,16 +29,27 @@ namespace Infra.Repository
             var result = _IDBContext.Connection.ExecuteAsync("Story_package.deleteStory", p, commandType: CommandType.StoredProcedure);
             return true;
         }
-
-        public List<storyViewModel> getallStory(int id)
+        public List<Story> getallStoryAdmin()
         {
+          
+
             IEnumerable<Story> story = _IDBContext.Connection.Query<Story>("Story_package.getallStory", commandType: CommandType.StoredProcedure);
+            foreach (var item in story)
+            {
+                item.User = getbyidUser(item.user_id);
+            }
+
+            return story.ToList();
+        }
+            public List<storyViewModel> getallStory(int id)
+        {
+            IEnumerable<Story> story = _IDBContext.Connection.Query<Story>("Story_package.getallStory", commandType: CommandType.StoredProcedure).Where(x=>x.state==0);
             
             var storyViewModel = new List<storyViewModel>();
             var UserList = _followerrepository.getalluserThatFollow(id);
             foreach (var item in UserList)
             {
-                var storyO = story.Where(x => x.user_id == item.id).ToList();
+                var storyO = story.Where(x => x.user_id == item.id ).ToList();
                 if (storyO.Count != 0)
                 {
                     storyViewModel model = new storyViewModel()
@@ -84,6 +95,7 @@ namespace Infra.Repository
             IEnumerable<StoryUser> result = _IDBContext.Connection.Query<StoryUser>("Story_package.getStoryUser", commandType: CommandType.StoredProcedure);
             return result.ToList();
         }
+      
 
         public Story getbyidStory(int id)
         {
@@ -97,11 +109,11 @@ namespace Infra.Repository
         public bool insertStory(Story story)
         {
             var p = new DynamicParameters();
-            p.Add("@Cdate", story.createdate, dbType: DbType.DateTime, direction: ParameterDirection.Input);
+            p.Add("@Cdate", DateTime.Now, dbType: DbType.DateTime, direction: ParameterDirection.Input);
             p.Add("@Uid", story.user_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
-            p.Add("@Sdesc", story.descrption, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@Sstate", story.state, dbType: DbType.Int32, direction: ParameterDirection.Input);
-            p.Add("@SimagePath", story.imagePath, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@Sdesc", "trtrtr", dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Sstate", 0, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@UimagePath", story.imagePath, dbType: DbType.String, direction: ParameterDirection.Input);
 
             var result = _IDBContext.Connection.ExecuteAsync("Story_package.insertStory", p, commandType: CommandType.StoredProcedure);
             return true;
@@ -115,7 +127,7 @@ namespace Infra.Repository
             p.Add("@Uid", story.user_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Sdesc", story.descrption, dbType: DbType.String, direction: ParameterDirection.Input);
             p.Add("@Sstate", story.state, dbType: DbType.Int32, direction: ParameterDirection.Input);
-            p.Add("@SimagePath", story.imagePath, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@UimagePath", story.imagePath, dbType: DbType.String, direction: ParameterDirection.Input);
 
             var result = _IDBContext.Connection.ExecuteAsync("Story_package.updateStory", p, commandType: CommandType.StoredProcedure);
             return true;
@@ -141,7 +153,7 @@ namespace Infra.Repository
             p.Add("@Uid", story.user_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Sdesc", story.descrption, dbType: DbType.String, direction: ParameterDirection.Input);
             p.Add("@Sstate", story.state, dbType: DbType.Int32, direction: ParameterDirection.Input);
-            p.Add("@SimagePath", story.imagePath, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@UimagePath", story.imagePath, dbType: DbType.String, direction: ParameterDirection.Input);
 
             var result = _IDBContext.Connection.ExecuteAsync("Story_package.updateStory", p, commandType: CommandType.StoredProcedure);
             return true;

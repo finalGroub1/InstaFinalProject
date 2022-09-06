@@ -14,6 +14,9 @@ namespace Core.Data
         public int user_id { get; set; }
         public int post_id { get; set; }
 
+        public DateTime datein { get; set; }
+        public DateTime date_to { get; set; }
+
         [ForeignKey("service_id")]
         public virtual Service_F Service_ { get; set; }
 
