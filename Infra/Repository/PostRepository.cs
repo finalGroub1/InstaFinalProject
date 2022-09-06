@@ -236,6 +236,8 @@ namespace Infra.Repository
             foreach (var servic in ServiceUser)
             {
                 var postPro = postViewModelList.Where(x => x.post.id == servic.post_id).FirstOrDefault();
+                
+                
                 if (postPro == null && servic.date_to.Date>DateTime.Now.Date)
                 {    
                     var comm = comment.Where(x => x.post_id == servic.post_id).OrderByDescending(x => x.date_).ToList();
