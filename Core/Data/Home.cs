@@ -10,8 +10,8 @@ namespace Core.Data
         [Key]
         public int id { get; set; }
         public string description1 { get; set; }
-        public string description2 { get; set; }
+        public string? description2 { get; set; }
         public string imge1 { get; set; }
-        public string imge2 { get; set; }
+        public string? imge2 { get; set; }
     }
 }

@@ -73,7 +73,8 @@ namespace Infra.Repository
             MailboxAddress From = new MailboxAddress("User", "Saja_sjsj@hotmail.com");
             MailboxAddress to = new MailboxAddress("user", "finalGroub1@gmail.com");
 
-            B.HtmlBody = "<pre> There is a report in your post Because you are violate our privacy policy in this post </pre><br><p>" + post.desc_+"</p>";
+
+            B.HtmlBody = "<h3> There is a report in your post Because you are violate our privacy policy in this post </h3><br><h3>" + post.desc_+"</h3>";
             message.Body = B.ToMessageBody();
             message.From.Add(From);
             message.To.Add(to);
