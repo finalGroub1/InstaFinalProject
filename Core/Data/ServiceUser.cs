@@ -17,9 +17,9 @@ namespace Core.Data
         public DateTime datein { get; set; }
         public DateTime date_to { get; set; }
         [NotMapped]
-        public int NumberOfOrder { get; set; }
+        public int NumberOfOrder { get; set; } 
         [NotMapped]
-        public int NumberOfServices { get; set; }
+        public int NumberOfServices { get; set; } 
         [NotMapped]
         public double SumOfSales { get; set; }
 

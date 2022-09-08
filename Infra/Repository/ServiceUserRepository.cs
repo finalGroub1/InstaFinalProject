@@ -64,17 +64,18 @@ namespace Infra.Repository
             return serviceUser.ToList();
         }
         public List<ServiceUser> getallMyserviceUser(int id)
-        
         {
+            IEnumerable<Service_F> service = _IDBContext.Connection.Query<Service_F>("Service_F_package.getallService", commandType: CommandType.StoredProcedure);
+          
             IEnumerable<MediaPost> mediaPost = _IDBContext.Connection.Query<MediaPost>("MediaPost_package.getallMediaPost", commandType: CommandType.StoredProcedure);
             var serviceUser = _IDBContext.Connection.Query<ServiceUser>("ServiceUser_package.getallServiceUser", commandType: CommandType.StoredProcedure).Where(x=> x.user_id == id).ToList();
-
+            int sumOfSales = 0;
             foreach (var item in serviceUser)
             {
                 item.Service_ = getbyidService(item.service_id);
                 item.Post = _IPostRepository.getbyidPost(item.post_id);
                 item.Post.MediaPosts = mediaPost.Where(x => x.post_id == item.post_id).ToList();
-
+                sumOfSales += item.Service_.price;
                 foreach (var item3 in item.Post.MediaPosts)
                 {
                     if (item3.mediapath != null && item3.mediapath.Contains("mp4"))
@@ -85,8 +86,22 @@ namespace Infra.Repository
                         item3.isVideo = 0;
                 }
             }
+            //-----------------------------------------------------------------------------
+            int sumOfService = 0;
+            foreach (var item in service)
+            {
+                var countOfServiceUser = serviceUser.Where(x => x.service_id == item.id).ToList();
+                if(countOfServiceUser.Count!=0)
+                {
+                    sumOfService++;
+                }
+            }
+
+            //-----------------------------------------------------------------------------
             if(serviceUser.Count != 0) {
-                serviceUser.
+                serviceUser[0].NumberOfOrder = serviceUser.Count();
+                serviceUser[0].SumOfSales = sumOfSales;
+                serviceUser[0].NumberOfServices = sumOfService;
             }
             
             return serviceUser.ToList();
