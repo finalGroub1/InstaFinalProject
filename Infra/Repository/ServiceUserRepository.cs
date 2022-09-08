@@ -32,6 +32,10 @@ namespace Infra.Repository
 
             public bool deleteServiceUser(int id)
         {
+            var ServiceUser = getbyidServiceUser(id);
+            var post = _IPostRepository.getbyidPost(ServiceUser.post_id);
+            post.state = 0;
+            _IPostRepository.updatePost(post);
             var p = new DynamicParameters();
             p.Add("@idofServiceUser", id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             var result = _IDBContext.Connection.ExecuteAsync("ServiceUser_package.deleteServiceUser", p, commandType: CommandType.StoredProcedure);

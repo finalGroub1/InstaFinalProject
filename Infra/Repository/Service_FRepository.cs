@@ -30,8 +30,22 @@ namespace Infra.Repository
 
         public List<Service_F> getallService()
         {
-            IEnumerable<Service_F> result = _IDBContext.Connection.Query<Service_F>("Service_F_package.getallService", commandType: CommandType.StoredProcedure);
-            return result.ToList();
+            IEnumerable<Service_F> service = _IDBContext.Connection.Query<Service_F>("Service_F_package.getallService", commandType: CommandType.StoredProcedure);
+            var serviceUser = _IDBContext.Connection.Query<ServiceUser>("ServiceUser_package.getallServiceUser", commandType: CommandType.StoredProcedure).ToList();
+
+            foreach (var item in service)
+            {
+                var countOfServiceUser = serviceUser.Where(x => x.service_id == item.id).ToList();
+                if (countOfServiceUser.Count != 0)
+                {
+                    item.countOfUsers = 1;
+                }
+                else
+                {
+                    item.countOfUsers = 0;
+                }
+            } 
+            return service.ToList();
         }
 
         public Service_F getbyidService(int id)
