@@ -7,7 +7,7 @@ namespace Core.Repository
 {
    public interface IVisaRepository
     {
-        public List<Visa> getallVisa();
+        public List<Visa> getallVisa(int id);
 
         public bool updateVisa(Visa visa);
 
@@ -16,5 +16,6 @@ namespace Core.Repository
         public bool insertVisa(Visa visa);
 
         public Visa getbyidVisa(int id);
+        public bool Chickvisa(Visa visa);
     }
 }

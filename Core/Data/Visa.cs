@@ -16,6 +16,11 @@ namespace Core.Data
         public int mm { get; set; }
         public int yy { get; set; }
         public int user_id { get; set; }
+        public double amount { get; set; }
+        [NotMapped]
+        public int postId { get; set; }
+        [NotMapped]
+        public int ServiceId { get; set; }
 
         [ForeignKey("user_id")]
         public virtual User User { get; set; }

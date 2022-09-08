@@ -21,9 +21,13 @@ namespace Infra.Service
             return visaRepository.deleteVisa(id);
         }
 
-        public List<Visa> getallVisa()
+        public List<Visa> getallVisa(int id)
         {
-            return visaRepository.getallVisa();
+            return visaRepository.getallVisa(id);
+        }
+        public bool Chickvisa(Visa visa)
+        {
+            return visaRepository.Chickvisa(visa);
         }
 
         public Visa getbyidVisa(int id)

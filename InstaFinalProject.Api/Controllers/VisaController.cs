@@ -28,9 +28,10 @@ namespace InstaFinalProject.Api.Controllers
         }
 
         [HttpGet]
-        public List<Visa> getallVisa()
+        [Route("getallVisa/{id}")]
+        public List<Visa> getallVisa(int id)
         {
-            return visaService.getallVisa();
+            return visaService.getallVisa(id);
         }
 
         [HttpGet]
@@ -38,6 +39,12 @@ namespace InstaFinalProject.Api.Controllers
         public Visa getbyidVisa(int id)
         {
             return visaService.getbyidVisa(id);
+        }
+        [HttpPost]
+        [Route("Chickvisa")]
+        public bool Chickvisa(Visa visa)
+        {
+            return visaService.Chickvisa(visa);
         }
 
         [HttpPost]
