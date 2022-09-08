@@ -25,6 +25,10 @@ namespace Infra.Service
         {
             return serviceUserRepository.getallServiceUser();
         }
+        public List<ServiceUser> getallMyserviceUser(int id)
+        {
+            return serviceUserRepository.getallMyserviceUser(id);
+        }
 
         public ServiceUser getbyidServiceUser(int id)
         {

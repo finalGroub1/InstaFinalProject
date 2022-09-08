@@ -39,6 +39,12 @@ namespace InstaFinalProject.Api.Controllers
         {
             return serviceUserService.getbyidServiceUser(id);
         }
+        [HttpGet]
+        [Route("getallMyserviceUser/{id}")]
+        public List<ServiceUser> getallMyserviceUser(int id)
+        {
+            return serviceUserService.getallMyserviceUser(id);
+        }
 
         [HttpPost]
         public bool insertServiceUser([FromBody] ServiceUser serviceUser)

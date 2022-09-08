@@ -22,8 +22,15 @@ namespace Infra.Repository
 
 
         }
+        public User getbyidUser(int id)
+        {
+            var p = new DynamicParameters();
+            p.Add("@Uid", id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            var result = _IDBContext.Connection.Query<User>("User_F_package.getbyidUser", p, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            return result;
+        }
 
-        public bool deleteServiceUser(int id)
+            public bool deleteServiceUser(int id)
         {
             var p = new DynamicParameters();
             p.Add("@idofServiceUser", id, dbType: DbType.Int32, direction: ParameterDirection.Input);
@@ -33,8 +40,56 @@ namespace Infra.Repository
 
         public List<ServiceUser> getallServiceUser()
         {
-            IEnumerable<ServiceUser> result = _IDBContext.Connection.Query<ServiceUser>("ServiceUser_package.getallServiceUser", commandType: CommandType.StoredProcedure);
-            return result.ToList();
+            IEnumerable<MediaPost> mediaPost = _IDBContext.Connection.Query<MediaPost>("MediaPost_package.getallMediaPost", commandType: CommandType.StoredProcedure);
+            IEnumerable<ServiceUser> serviceUser = _IDBContext.Connection.Query<ServiceUser>("ServiceUser_package.getallServiceUser", commandType: CommandType.StoredProcedure).ToList();
+            foreach (var item in serviceUser)
+            {
+                item.Service_ = getbyidService(item.service_id);
+                item.Post = _IPostRepository.getbyidPost(item.post_id);
+                item.Post.MediaPosts = mediaPost.Where(x => x.post_id == item.post_id).ToList();
+                item.Post.User = getbyidUser(item.user_id);
+
+                foreach (var item3 in item.Post.MediaPosts)
+                {
+                    if (item3.mediapath != null && item3.mediapath.Contains("mp4"))
+                    {
+                        item3.isVideo = 1;
+                    }
+                    else
+                        item3.isVideo = 0;
+                }
+                {
+                }
+            }
+            return serviceUser.ToList();
+        }
+        public List<ServiceUser> getallMyserviceUser(int id)
+        
+        {
+            IEnumerable<MediaPost> mediaPost = _IDBContext.Connection.Query<MediaPost>("MediaPost_package.getallMediaPost", commandType: CommandType.StoredProcedure);
+            var serviceUser = _IDBContext.Connection.Query<ServiceUser>("ServiceUser_package.getallServiceUser", commandType: CommandType.StoredProcedure).Where(x=> x.user_id == id).ToList();
+
+            foreach (var item in serviceUser)
+            {
+                item.Service_ = getbyidService(item.service_id);
+                item.Post = _IPostRepository.getbyidPost(item.post_id);
+                item.Post.MediaPosts = mediaPost.Where(x => x.post_id == item.post_id).ToList();
+
+                foreach (var item3 in item.Post.MediaPosts)
+                {
+                    if (item3.mediapath != null && item3.mediapath.Contains("mp4"))
+                    {
+                        item3.isVideo = 1;
+                    }
+                    else
+                        item3.isVideo = 0;
+                }
+            }
+            if(serviceUser.Count != 0) {
+                serviceUser.
+            }
+            
+            return serviceUser.ToList();
         }
 
         public ServiceUser getbyidServiceUser(int id)

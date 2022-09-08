@@ -16,5 +16,6 @@ namespace Core.Service
         public bool insertServiceUser(ServiceUser serviceUser);
 
         public ServiceUser getbyidServiceUser(int id);
+        public List<ServiceUser> getallMyserviceUser(int id);
     }
 }
