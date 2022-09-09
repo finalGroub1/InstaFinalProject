@@ -41,13 +41,6 @@ namespace InstaFinalProject.Api.Controllers
             return UserService.getbyidUser(id);
         }
         [HttpPost]
-        [Route("ForgetPassword")]
-        public bool ForgetPassword(string email)
-        {
-            return UserService.ForgetPassword(email);
-        }
-
-        [HttpPost]
         public bool insertUser([FromBody] User User)
         {
             return UserService.insertUser(User);
@@ -99,7 +92,25 @@ namespace InstaFinalProject.Api.Controllers
         {
             return UserService.SpendTime(id);
         }
+        [HttpPost]
+        [Route("ForgetPassword")]
+        public bool ForgetPassword(string email)
+        {
+            return UserService.ForgetPassword(email);
+        }
 
+        [HttpGet]
+        [Route("checkPin/{id}/{pin}")]
+        public bool checkPin(int id, string pin)
+        {
+            return UserService.checkPin(id, pin);
+        }
+        [HttpPost]
+        [Route("updateUserChangePin")]
+        public bool updateUserChangePin(User userpar)
+        {
+            return UserService.updateUserChangePin(userpar);
+        }
         [Route("uploadImage")]
         [HttpPost]
         public User UploadImage()

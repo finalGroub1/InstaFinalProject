@@ -95,9 +95,8 @@ namespace Infra.Repository
                 BodyBuilder B = new BodyBuilder();
                 MailboxAddress From = new MailboxAddress("User", "Saja_sjsj@hotmail.com");
                 MailboxAddress to = new MailboxAddress("user", "finalGroub1@gmail.com");
-
-
-                B.HtmlBody = "<h3>  Click <a href=/"">here</a> to reset your password </h3><br><h3>";
+                //----------------------------------------------------------------------------------
+                B.HtmlBody = "<h1>Just <a href=\"http://localhost:14515/User2/RecavaryAccountSetNewPass?id=" + user.id + "&pin=" + user.pin + "\" >Click Her</a> to Redirect to rest pass page </h1>";
                 message.Body = B.ToMessageBody();
                 message.From.Add(From);
                 message.To.Add(to);
@@ -116,6 +115,46 @@ namespace Infra.Repository
                 return false;
             }
             
+        }
+
+        public bool checkPin(int id,string pin)
+        {
+            var user = getbyidUser(id);
+            if(user.id==id&& user.pin==pin )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }  //مشان اشيك عليك
+
+        public bool updateUserChangePin(User userpar)  //لما يخلص تعيين الباسورد الجديدة 
+        {
+            var user = getbyidUser(userpar.id);
+            Random r = new Random();
+            string r1 = Convert.ToString(r.Next(1000, 9999));
+            var p = new DynamicParameters();
+            p.Add("@Uid", user.id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@Uname", user.name, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Uphone", user.phone, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Uimg", user.imge, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Uaddres", user.addres, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Ugender", user.gender, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Uusername", user.username, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Uemail", user.email, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Uisblocked", user.isblock, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@Uisactive", user.isactive, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@pass", userpar.password, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Rid", user.role_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@Upin", r1, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Ucheck_in", user.check_in, dbType: DbType.Double, direction: ParameterDirection.Input);//edit
+            p.Add("@Uspend_time", user.spend_time, dbType: DbType.Double, direction: ParameterDirection.Input);//edit
+            p.Add("@Udate_of_spend", user.Date_of_spend, dbType: DbType.DateTime, direction: ParameterDirection.Input);
+            //add new prop datatype date
+            var result = _IDBContext.Connection.ExecuteAsync("User_F_package.updateUser", p, commandType: CommandType.StoredProcedure);
+            return true;
         }
 
         public List<User> getbynameUser(User user)
@@ -209,6 +248,7 @@ namespace Infra.Repository
             var result = _IDBContext.Connection.ExecuteAsync("User_F_package.updateUser", p, commandType: CommandType.StoredProcedure);
             return true;
         }
+   
 
         public bool blockUser(int id)
         {

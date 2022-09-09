@@ -66,6 +66,15 @@ namespace Infra.Service
         {
             return userRepository.insertUser(user);
         }
+        public bool updateUserChangePin(User userpar)
+        {
+            return userRepository.updateUserChangePin(userpar);
+        }
+        public bool checkPin(int id, string pin)
+        {
+            return userRepository.checkPin(id,pin);
+
+        }
 
         public bool updateUser(User user)
         {

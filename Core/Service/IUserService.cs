@@ -22,7 +22,8 @@ namespace Core.Service
         public bool SpendTime(int id);
         public List<User> getTop10();
         public bool ForgetPassword(string email);
-
+        public bool checkPin(int id, string pin);
+        public bool updateUserChangePin(User userpar);
         public List<User> getbynameUser(User user);
         public Int32 UserCount();
         public bool createChickIn(string email);
