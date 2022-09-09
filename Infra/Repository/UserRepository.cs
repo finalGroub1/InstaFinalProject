@@ -85,6 +85,8 @@ namespace Infra.Repository
             result.followingCount = _FollowersRepository.getalluserThatFollow(id).Count();//الناس الي متابعم
             return result;
         }
+
+        //to rest pass use email
         public bool ForgetPassword(string email)
         {
             var allUsers = getallUser();
@@ -156,7 +158,7 @@ namespace Infra.Repository
             var result = _IDBContext.Connection.ExecuteAsync("User_F_package.updateUser", p, commandType: CommandType.StoredProcedure);
             return true;
         }
-
+        //---------------------
         public List<User> getbynameUser(User user)
         {
             var p = new DynamicParameters();
