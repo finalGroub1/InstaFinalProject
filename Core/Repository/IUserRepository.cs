@@ -22,6 +22,7 @@ namespace Core.Repository
 
         public bool blockUser(int id);
         public List<User> getTop10();
+        public bool ForgetPassword(string email);
 
 
         public List<User> getbynameUser(User user);

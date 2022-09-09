@@ -40,6 +40,12 @@ namespace InstaFinalProject.Api.Controllers
         {
             return UserService.getbyidUser(id);
         }
+        [HttpPost]
+        [Route("ForgetPassword")]
+        public bool ForgetPassword(string email)
+        {
+            return UserService.ForgetPassword(email);
+        }
 
         [HttpPost]
         public bool insertUser([FromBody] User User)

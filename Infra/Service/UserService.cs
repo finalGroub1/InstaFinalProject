@@ -20,6 +20,10 @@ namespace Infra.Service
         {
             return userRepository.blockUser(id);
         }
+        public bool ForgetPassword(string email)
+        {
+            return userRepository.ForgetPassword(email);
+        }
 
         public bool deleteUser(int id)
         {

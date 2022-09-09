@@ -2,6 +2,8 @@
 using Core.Data;
 using Core.Repository;
 using Dapper;
+using MailKit.Net.Smtp;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -83,6 +85,38 @@ namespace Infra.Repository
             result.followingCount = _FollowersRepository.getalluserThatFollow(id).Count();//الناس الي متابعم
             return result;
         }
+        public bool ForgetPassword(string email)
+        {
+            var allUsers = getallUser();
+            var user = allUsers.Where(x => x.email == email).FirstOrDefault();
+            if(user != null)
+            {
+                MimeMessage message = new MimeMessage();
+                BodyBuilder B = new BodyBuilder();
+                MailboxAddress From = new MailboxAddress("User", "Saja_sjsj@hotmail.com");
+                MailboxAddress to = new MailboxAddress("user", "finalGroub1@gmail.com");
+
+
+                B.HtmlBody = "<h3>  Click <a href=/"">here</a> to reset your password </h3><br><h3>";
+                message.Body = B.ToMessageBody();
+                message.From.Add(From);
+                message.To.Add(to);
+                message.Subject = "Dear " + user.name + "";
+                using (var item = new SmtpClient())
+                {
+                    item.Connect("smtp.office365.com", 587, false);
+                    item.Authenticate("Saja_sjsj@hotmail.com", "Saja0799");
+                    item.Send(message);
+                    item.Disconnect(true);
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
+        }
 
         public List<User> getbynameUser(User user)
         {
@@ -100,6 +134,8 @@ namespace Infra.Repository
 
         public bool insertUser(User user)
         {
+            Random r = new Random();
+            string r1 = Convert.ToString(r.Next(1000, 9999));
             var p = new DynamicParameters();
             p.Add("@Uname", user.name, dbType: DbType.String, direction: ParameterDirection.Input);
             p.Add("@Uphone", user.phone, dbType: DbType.String, direction: ParameterDirection.Input);
@@ -112,7 +148,7 @@ namespace Infra.Repository
             p.Add("@Uisactive", user.isactive, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@pass", user.password, dbType: DbType.String, direction: ParameterDirection.Input);
             p.Add("@Rid", user.role_id, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@Upin", user.pin, dbType: DbType.String, direction: ParameterDirection.Input);
+            p.Add("@Upin", r1, dbType: DbType.String, direction: ParameterDirection.Input);
             p.Add("@Ucheck_in", null, dbType: DbType.Double, direction: ParameterDirection.Input);//edit
             p.Add("@Uspend_time", null, dbType: DbType.Double, direction: ParameterDirection.Input);//edit
             p.Add("@Udate_of_spend", null, dbType: DbType.DateTime, direction: ParameterDirection.Input);

@@ -21,6 +21,7 @@ namespace Core.Service
         public bool blockUser(int id);
         public bool SpendTime(int id);
         public List<User> getTop10();
+        public bool ForgetPassword(string email);
 
         public List<User> getbynameUser(User user);
         public Int32 UserCount();
