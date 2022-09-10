@@ -98,7 +98,7 @@ namespace Infra.Repository
                 MailboxAddress From = new MailboxAddress("User", "Saja_sjsj@hotmail.com");
                 MailboxAddress to = new MailboxAddress("user", "finalGroub1@gmail.com");
                 //----------------------------------------------------------------------------------
-                B.HtmlBody = "<h1>Just <a href=\"http://localhost:14515/User2/RecavaryAccountSetNewPass?id=" + user.id + "&pin=" + user.pin + "\" >Click Her</a> to Redirect to rest pass page </h1>";
+                B.HtmlBody = "<h1>Just <a href=\"http://localhost:4200/getpassword/" + user.id + "/" + user.pin + "\" >Click Her</a> to Redirect to rest pass page </h1>";
                 message.Body = B.ToMessageBody();
                 message.From.Add(From);
                 message.To.Add(to);
@@ -166,6 +166,18 @@ namespace Infra.Repository
             IEnumerable<User> result = _IDBContext.Connection.Query<User>("User_F_package.getbynameUser", p, commandType: CommandType.StoredProcedure);
             return result.ToList();
         }
+        public List<User> getbynameFollowing(User user)
+        {
+            if (user.name == "")
+            {
+                return _FollowersRepository.getalluserToFollow(user.id);
+            }
+            else
+            {
+                var followingFilter = _FollowersRepository.getalluserToFollow(user.id).Where(x => x.name.ToUpper().Contains(user.name.ToUpper())).ToList();
+                return followingFilter;
+            }
+        }
 
         public List<User> getactiveUser()
         {
@@ -175,27 +187,32 @@ namespace Infra.Repository
 
         public bool insertUser(User user)
         {
-            Random r = new Random();
-            string r1 = Convert.ToString(r.Next(1000, 9999));
-            var p = new DynamicParameters();
-            p.Add("@Uname", user.name, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@Uphone", user.phone, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@Uimg", user.imge, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@Uaddres", user.addres, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@Ugender", user.gender, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@Uusername", user.username, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@Uemail", user.email, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@Uisblocked", user.isblock, dbType: DbType.Int32, direction: ParameterDirection.Input);
-            p.Add("@Uisactive", user.isactive, dbType: DbType.Int32, direction: ParameterDirection.Input);
-            p.Add("@pass", user.password, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@Rid", user.role_id, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@Upin", r1, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@Ucheck_in", null, dbType: DbType.Double, direction: ParameterDirection.Input);//edit
-            p.Add("@Uspend_time", null, dbType: DbType.Double, direction: ParameterDirection.Input);//edit
-            p.Add("@Udate_of_spend", null, dbType: DbType.DateTime, direction: ParameterDirection.Input);
-            
-            var result = _IDBContext.Connection.ExecuteAsync("User_F_package.insertUser", p, commandType: CommandType.StoredProcedure);
-            return true;
+            var userTest = getallUser().Where(x=> x.email == user.email).FirstOrDefault();
+            if (userTest == null)
+            {
+                Random r = new Random();
+                string r1 = Convert.ToString(r.Next(1000, 9999));
+                var p = new DynamicParameters();
+                p.Add("@Uname", user.name, dbType: DbType.String, direction: ParameterDirection.Input);
+                p.Add("@Uphone", user.phone, dbType: DbType.String, direction: ParameterDirection.Input);
+                p.Add("@Uimg", user.imge, dbType: DbType.String, direction: ParameterDirection.Input);
+                p.Add("@Uaddres", user.addres, dbType: DbType.String, direction: ParameterDirection.Input);
+                p.Add("@Ugender", user.gender, dbType: DbType.String, direction: ParameterDirection.Input);
+                p.Add("@Uusername", user.username, dbType: DbType.String, direction: ParameterDirection.Input);
+                p.Add("@Uemail", user.email, dbType: DbType.String, direction: ParameterDirection.Input);
+                p.Add("@Uisblocked", user.isblock, dbType: DbType.Int32, direction: ParameterDirection.Input);
+                p.Add("@Uisactive", user.isactive, dbType: DbType.Int32, direction: ParameterDirection.Input);
+                p.Add("@pass", user.password, dbType: DbType.String, direction: ParameterDirection.Input);
+                p.Add("@Rid", user.role_id, dbType: DbType.String, direction: ParameterDirection.Input);
+                p.Add("@Upin", r1, dbType: DbType.String, direction: ParameterDirection.Input);
+                p.Add("@Ucheck_in", null, dbType: DbType.Double, direction: ParameterDirection.Input);//edit
+                p.Add("@Uspend_time", null, dbType: DbType.Double, direction: ParameterDirection.Input);//edit
+                p.Add("@Udate_of_spend", null, dbType: DbType.DateTime, direction: ParameterDirection.Input);
+
+                var result = _IDBContext.Connection.ExecuteAsync("User_F_package.insertUser", p, commandType: CommandType.StoredProcedure);
+                return true;
+            }
+            return false;
         }
 
         public bool updateUser(User user)

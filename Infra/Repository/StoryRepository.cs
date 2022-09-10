@@ -43,12 +43,12 @@ namespace Infra.Repository
         }
             public List<storyViewModel> getallStory(int id)
         {
-            IEnumerable<Story> story = _IDBContext.Connection.Query<Story>("Story_package.getallStory", commandType: CommandType.StoredProcedure).Where(x=>x.state==0);
+            IEnumerable<Story> story = _IDBContext.Connection.Query<Story>("Story_package.getallStory", commandType: CommandType.StoredProcedure).Where(x=>x.state==0 && x.createdate >= DateTime.Now.AddDays(-1));
             
             var storyViewModel = new List<storyViewModel>();
             var UserList = _followerrepository.getalluserThatFollow(id);
             foreach (var item in UserList)
-            {
+                {
                 var storyO = story.Where(x => x.user_id == item.id ).ToList();
                 if (storyO.Count != 0)
                 {

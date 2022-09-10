@@ -92,8 +92,8 @@ namespace InstaFinalProject.Api.Controllers
         {
             return UserService.SpendTime(id);
         }
-        [HttpPost]
-        [Route("ForgetPassword")]
+        [HttpGet]
+        [Route("ForgetPassword/{email}")]
         public bool ForgetPassword(string email)
         {
             return UserService.ForgetPassword(email);
@@ -142,6 +142,12 @@ namespace InstaFinalProject.Api.Controllers
                 return null;
             }
 
+        }
+        [HttpPost]
+        [Route("GetFollowingByname")]
+        public List<User> getbynameFollowing(User user)
+        {
+            return UserService.getbynameFollowing(user);
         }
     }
 }

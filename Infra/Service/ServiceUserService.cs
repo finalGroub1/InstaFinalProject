@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using Core.DTO;
 using Core.Repository;
 using Core.Service;
 using System;
@@ -25,9 +26,17 @@ namespace Infra.Service
         {
             return serviceUserRepository.getallServiceUser();
         }
+        public double annualFinancial()
+        {
+            return serviceUserRepository.annualFinancial();
+        }
         public List<ServiceUser> getallMyserviceUser(int id)
         {
             return serviceUserRepository.getallMyserviceUser(id);
+        }
+        public Financial Financial()
+        {
+            return serviceUserRepository.Financial();
         }
 
         public ServiceUser getbyidServiceUser(int id)

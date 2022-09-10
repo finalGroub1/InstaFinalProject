@@ -42,6 +42,8 @@ namespace Infra.Repository
                     user_id = visa.user_id                    
 
                 };
+                getvisa.amount -= getservice.price;
+                updateVisa(getvisa);
                 _serviceUser.insertServiceUser(model);
                 return true;
             }

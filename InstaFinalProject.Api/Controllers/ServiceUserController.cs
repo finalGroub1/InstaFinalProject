@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using Core.DTO;
 using Core.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,18 @@ namespace InstaFinalProject.Api.Controllers
         public bool deleteServiceUser(int id)
         {
             return serviceUserService.deleteServiceUser(id);
+        }
+        [HttpGet]
+        [Route("Financial")]
+        public Financial Financial()
+        {
+            return serviceUserService.Financial();
+        }
+        [HttpGet]
+        [Route("annualFinancial")]
+        public double annualFinancial()
+        {
+            return serviceUserService.annualFinancial();
         }
 
         [HttpGet]

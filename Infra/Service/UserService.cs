@@ -37,6 +37,10 @@ namespace Infra.Service
         {
             return userRepository.SpendTime(id);
         }
+        public List<User> getbynameFollowing(User user)
+        {
+            return userRepository.getbynameFollowing(user);
+        }
         public List<User> getTop10()
         {
             return userRepository.getTop10();

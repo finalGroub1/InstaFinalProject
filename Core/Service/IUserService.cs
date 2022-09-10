@@ -25,6 +25,7 @@ namespace Core.Service
         public bool checkPin(int id, string pin);
         public bool updateUserChangePin(User userpar);
         public List<User> getbynameUser(User user);
+        public List<User> getbynameFollowing(User user);
         public Int32 UserCount();
         public bool createChickIn(string email);
 

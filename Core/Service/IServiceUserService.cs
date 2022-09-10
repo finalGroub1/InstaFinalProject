@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using Core.DTO;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,5 +18,7 @@ namespace Core.Service
 
         public ServiceUser getbyidServiceUser(int id);
         public List<ServiceUser> getallMyserviceUser(int id);
+        public Financial Financial();
+        public double annualFinancial();
     }
 }

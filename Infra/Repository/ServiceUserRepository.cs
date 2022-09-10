@@ -1,5 +1,6 @@
 ﻿using Core.Common;
 using Core.Data;
+using Core.DTO;
 using Core.Repository;
 using Dapper;
 using System;
@@ -66,6 +67,38 @@ namespace Infra.Repository
                 }
             }
             return serviceUser.ToList();
+        }
+        public Financial Financial()
+        {
+            var financial = new Financial();
+            var allserviceUser = getallServiceUser();
+            var userService = allserviceUser.Where(x => x.datein >= DateTime.Now.AddMonths(-1));
+            IEnumerable<Service_F> service = _IDBContext.Connection.Query<Service_F>("Service_F_package.getallService", commandType: CommandType.StoredProcedure);
+            IEnumerable<User> userActive = _IDBContext.Connection.Query<User>("User_F_package.getactiveuser", commandType: CommandType.StoredProcedure);
+            double sum = 0;
+            foreach (var item in userService)
+            {
+                item.Service_ = getbyidService(item.service_id);
+                sum += item.Service_.price;
+            }
+            financial.monthlyProfit = sum;
+            financial.annualProfit = sum * 12;
+            financial.numberOfOrders = allserviceUser.Count();
+            financial.numberOfService = service.Count();
+            financial.userActive = userActive.Count();
+            return financial;
+        }
+        public double annualFinancial()
+        {
+            var allserviceUser = getallServiceUser();
+            var userService = allserviceUser.Where(x => x.datein >= DateTime.Now.AddMonths(-1));
+            double sum = 0;
+            foreach (var item in userService)
+            {
+                item.Service_ = getbyidService(item.service_id);
+                sum += item.Service_.price;
+            }
+            return sum;
         }
         public List<ServiceUser> getallMyserviceUser(int id)
         {
