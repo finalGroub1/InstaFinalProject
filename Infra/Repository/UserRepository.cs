@@ -85,10 +85,10 @@ namespace Infra.Repository
             result.followingCount = _FollowersRepository.getalluserThatFollow(id).Count();//الناس الي متابعم
             return result;
         }
-
+        //Email
         //to rest pass use email
         public bool ForgetPassword(string email)
-        {
+            {
             var allUsers = getallUser();
             var user = allUsers.Where(x => x.email == email).FirstOrDefault();
             if(user != null)
