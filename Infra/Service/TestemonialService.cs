@@ -25,6 +25,10 @@ namespace Infra.Service
         {
             return testemonialRepository.getallTestemonial();
         }
+        public bool ChangeState(int id)
+        {
+            return testemonialRepository.ChangeState(id);
+        }
 
         public Testmonial getbyidTestemonial(int id)
         {

@@ -45,6 +45,12 @@ namespace InstaFinalProject.Api.Controllers
         {
             return testemonialService.insertTestemonial(testmonial);
         }
+        [HttpGet]
+        [Route("ChangeState/{id}")]
+        public bool ChangeState(int id)
+        {
+            return testemonialService.ChangeState(id);
+        }
 
         [HttpPut]
         public bool updateTestemonial(Testmonial testmonial)

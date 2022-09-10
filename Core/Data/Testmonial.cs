@@ -18,9 +18,9 @@ namespace Core.Data
         // must be added relation with table user to know who the user is submitted this testemonial
 
 
-        //public int userid { get; set; }
-        //[ForeignKey("userid")]
-        //public virtual User user { get; set; }
+        public int user_id { get; set; }
+        [ForeignKey("user_id")]
+        public virtual User user { get; set; }
 
 
     }

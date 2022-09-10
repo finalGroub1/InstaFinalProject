@@ -16,5 +16,6 @@ namespace Core.Repository
         public bool insertTestemonial(Testmonial testmonial);
 
         public Testmonial getbyidTestemonial(int id);
+        public bool ChangeState(int id);
     }
 }

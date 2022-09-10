@@ -29,8 +29,19 @@ namespace Infra.Repository
 
         public List<Testmonial> getallTestemonial()
         {
-            IEnumerable<Testmonial> result = _IDBContext.Connection.Query<Testmonial>("Testemonial_package.getallTestemonial", commandType: CommandType.StoredProcedure);
-            return result.ToList();
+            IEnumerable<Testmonial> allTestimonial = _IDBContext.Connection.Query<Testmonial>("Testemonial_package.getallTestemonial", commandType: CommandType.StoredProcedure);
+            foreach (var item in allTestimonial)
+            {
+                item.user = getbyidUser(item.user_id);
+            }
+            return allTestimonial.ToList();
+        }
+        public User getbyidUser(int id)
+        {
+            var p = new DynamicParameters();
+            p.Add("@Uid", id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            var result = _IDBContext.Connection.Query<User>("User_F_package.getbyidUser", p, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            return result;
         }
 
         public Testmonial getbyidTestemonial(int id)
@@ -40,13 +51,28 @@ namespace Infra.Repository
             var result = _IDBContext.Connection.Query<Testmonial>("Testemonial_package.getbyidTestemonial", p, commandType: CommandType.StoredProcedure).FirstOrDefault();
             return result;
         }
+        public bool ChangeState(int id)
+        {
+            var getbyid = getbyidTestemonial(id);
+            if (getbyid.state == 0)
+            {
+                getbyid.state = 1;
+            }
+            else if(getbyid.state == 1)
+            {
+                getbyid.state = 0;
+            }
+            updateTestemonial(getbyid);
+            return true;
+        }
 
         public bool insertTestemonial(Testmonial testmonial)
         {
             var p = new DynamicParameters();
-            p.Add("@Tstate", testmonial.state, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@Tstate", 1, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Tdesc", testmonial.description, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@Tevaluation", testmonial.evaluation, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@Tevaluation", 3, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@Tuser", testmonial.user_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
 
             var result = _IDBContext.Connection.ExecuteAsync("Testemonial_package.insertTestemonial", p, commandType: CommandType.StoredProcedure);
             return true;
@@ -58,7 +84,8 @@ namespace Infra.Repository
             p.Add("@Tid", testmonial.id, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Tstate", testmonial.state, dbType: DbType.Int32, direction: ParameterDirection.Input);
             p.Add("@Tdesc", testmonial.description, dbType: DbType.String, direction: ParameterDirection.Input);
-            p.Add("@Tevaluation", testmonial.evaluation, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@Tevaluation", 3, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            p.Add("@Tuser", testmonial.user_id, dbType: DbType.Int32, direction: ParameterDirection.Input);
 
             var result = _IDBContext.Connection.ExecuteAsync("Testemonial_package.updateTestemonial", p, commandType: CommandType.StoredProcedure);
             return true;

@@ -51,11 +51,11 @@ namespace Infra.Repository
 
             if (user.Date_of_spend.Day.ToString("MM:dd:YYYY") == DateTime.Now.Day.ToString("MM:dd:YYYY"))
             {
-                user.spend_time += Math.Round((timeDouble - user.check_in), 2);
+               user.spend_time += Math.Abs(Math.Round((timeDouble - user.check_in), 2));
             }
             else
             {
-                user.spend_time = Math.Round((timeDouble - user.check_in), 2);
+                user.spend_time = Math.Abs(Math.Round((timeDouble - user.check_in), 2));
             }
 
             //we will add a prop in database in datatype date and will take the value from here
@@ -188,7 +188,8 @@ namespace Infra.Repository
         public bool insertUser(User user)
         {
             var userTest = getallUser().Where(x=> x.email == user.email).FirstOrDefault();
-            if (userTest == null)
+            var usernameTest = getallUser().Where(x => x.username == user.username).FirstOrDefault();
+            if (userTest == null && usernameTest == null)
             {
                 Random r = new Random();
                 string r1 = Convert.ToString(r.Next(1000, 9999));
