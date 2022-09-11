@@ -126,7 +126,7 @@ namespace InstaFinalProject.Api.Controllers
                 //}
                 var fileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                 //string attachmentFileName = $"{fileName}.{Path.GetExtension(file.FileName).Replace(".","")}";
-                var fullPath = Path.Combine(@"D:\edu\EduSite\src\assets\images", fileName);
+                var fullPath = Path.Combine(@"C:\Users\Bader Qabooq\Desktop\edu\EduSite\src\assets\images", fileName);
                 using (var stream = new FileStream(fullPath, FileMode.Create))
                 {
                     file.CopyTo(stream);

@@ -95,7 +95,7 @@ namespace Infra.Repository
             {
                 MimeMessage message = new MimeMessage();
                 BodyBuilder B = new BodyBuilder();
-                MailboxAddress From = new MailboxAddress("User", "Saja_sjsj@hotmail.com");
+                MailboxAddress From = new MailboxAddress("Privacy  Instagram", "Privacyininstagram@hotmail.com");
                 MailboxAddress to = new MailboxAddress("user", "finalGroub1@gmail.com");
                 //----------------------------------------------------------------------------------
                 B.HtmlBody = "<h1>Just <a href=\"http://localhost:4200/getpassword/" + user.id + "/" + user.pin + "\" >Click Her</a> to Redirect to rest pass page </h1>";
@@ -106,7 +106,7 @@ namespace Infra.Repository
                 using (var item = new SmtpClient())
                 {
                     item.Connect("smtp.office365.com", 587, false);
-                    item.Authenticate("Saja_sjsj@hotmail.com", "Saja0799");
+                    item.Authenticate("Privacyininstagram@hotmail.com", "Privacy#in@instagram#");
                     item.Send(message);
                     item.Disconnect(true);
                 }
