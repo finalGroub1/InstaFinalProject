@@ -84,7 +84,10 @@ namespace Infra.Repository
             }
             //-------------------------------------------
             var followUpObject = allUserfollow.Where(x => followUp.Any(y => y.user_id_up.Equals(x.id))).ToList();
-            for(int i=0; i<=followUp.Count-1;i++)
+
+
+            //--------------------------------------------
+            for(int i=0; i<= followUpObject.Count-1;i++)
             {
                 followUpObject[i].isfollowBack = followUp[i].isfollowBack;
             }
